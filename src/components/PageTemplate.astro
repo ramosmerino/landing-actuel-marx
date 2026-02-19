@@ -1,0 +1,21 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "./Header.astro";
+import Navigation from "./Navigation.astro";
+
+export interface Props {
+    content: {
+        title: string;
+        body: string;
+    };
+}
+---
+
+<Layout title={content.title}>
+    <Header />
+    <Navigation />
+    <main>
+        <h1>{content.title}</h1>
+        <div innerHTML={content.body}></div>
+    </main>
+</Layout>

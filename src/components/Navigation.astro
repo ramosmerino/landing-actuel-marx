@@ -1,0 +1,188 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navItems = [
+  { label: 'INICIO', href: '/' },
+  { label: 'NUMERO ACTUAL', href: '/numero-actual' },
+  { label: 'NUMEROS ANTERIORES', href: '/numeros-anteriores' },
+  { label: 'CONVOCATORIAS', href: '/convocatorias' },
+  {
+    label: 'SOBRE LA REVISTA',
+    href: '#',
+    dropdown: [
+      { label: 'ACERCA DE LA REVISTA', href: '/acerca-de-la-revista' },
+      { label: 'COMITÉ EDITORIAL', href: '/comite-editorial' },
+      { label: 'NORMAS DE PUBLICACIÓN', href: '/normas-de-publicacion' },
+    ]
+  },
+  { label: 'NOTICIAS Y EVENTOS', href: '/noticias-y-eventos' },
+  { label: 'CONTACTANOS', href: '/contactanos' },
+];
+---
+
+<nav class="navigation">
+  <div class="container">
+    <button class="mobile-toggle" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-list">
+      {navItems.map((item) => (
+        <li class={`nav-item ${item.dropdown ? 'has-dropdown' : ''}`}>
+          <a
+            href={item.href}
+            class={`nav-link ${currentPath === item.href ? 'active' : ''}`}
+          >
+            {item.label}
+          </a>
+          {item.dropdown && (
+            <ul class="dropdown">
+              {item.dropdown.map((subItem) => (
+                <li>
+                  <a href={subItem.href} class="dropdown-link">
+                    {subItem.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .navigation {
+    background: #2e2927;
+    position: relative;
+    z-index: 100;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+  }
+
+  .mobile-toggle span {
+    width: 25px;
+    height: 3px;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s;
+  }
+
+  .nav-list {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 15px 18px;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background: #be2e2a;
+    color: #fff;
+  }
+
+  .has-dropdown:hover .dropdown {
+    display: block;
+  }
+
+  .dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #3a3633;
+    min-width: 220px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 101;
+  }
+
+  .dropdown-link {
+    display: block;
+    padding: 12px 18px;
+    color: #fff;
+    font-size: 0.8rem;
+    letter-spacing: 0.3px;
+    transition: background 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .dropdown-link:hover {
+    background: #be2e2a;
+  }
+
+  @media (max-width: 900px) {
+    .mobile-toggle {
+      display: flex;
+    }
+
+    .nav-list {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #2e2927;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-list.open {
+      display: flex;
+    }
+
+    .nav-link {
+      padding: 12px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .dropdown {
+      position: static;
+      box-shadow: none;
+      background: #252220;
+    }
+
+    .has-dropdown:hover .dropdown {
+      display: block;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('.mobile-toggle');
+    const navList = document.querySelector('.nav-list');
+
+    toggle?.addEventListener('click', () => {
+      navList?.classList.toggle('open');
+    });
+  });
+</script>

@@ -1,0 +1,214 @@
+---
+const footerLinks = [
+  { label: 'INICIO', href: '/' },
+  { label: 'NUMERO ACTUAL', href: '/numero-actual' },
+  { label: 'NUMEROS ANTERIORES', href: '/numeros-anteriores' },
+  { label: 'CONVOCATORIAS', href: '/convocatorias' },
+  { label: 'SOBRE LA REVISTA', href: '#' },
+  { label: 'ACERCA DE LA REVISTA', href: '/acerca-de-la-revista', indent: true },
+  { label: 'COMITÉ EDITORIAL', href: '/comite-editorial', indent: true },
+  { label: 'NORMAS DE PUBLICACIÓN', href: '/normas-de-publicacion', indent: true },
+  { label: 'NOTICIAS Y EVENTOS', href: '/noticias-y-eventos' },
+  { label: 'CONTACTANOS', href: '/contactanos' },
+];
+---
+
+<footer class="footer">
+  <div class="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3 class="footer-title">La Revista</h3>
+          <ul class="footer-links">
+            {footerLinks.map((link) => (
+              <li class={link.indent ? 'indent' : ''}>
+                <a href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="footer-column">
+          <h3 class="footer-title">Suscripción</h3>
+          <div class="subscription-info">
+            <a href="https://lom.cl" target="_blank" rel="noopener noreferrer" class="lom-logo-box">
+              <div class="lom-styled-logo">
+                <span class="lom-text">LOM</span>
+                <span class="lom-sub">EDICIONES</span>
+              </div>
+            </a>
+            <p>Edición papel</p>
+            <a href="https://www.lom.cl" target="_blank" rel="noopener noreferrer" class="lom-link">
+              www.lom.cl
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-column">
+          <h3 class="footer-title">Informaciones</h3>
+          <div class="info-content">
+            <p>María Emilia Tijoux Merino/</p>
+            <p>Registro de propiedad intelectual</p>
+            <p>N° 158.253</p>
+            <p>ISSN: 0718-0179</p>
+            <p>www.actuelmarxint.cl</p>
+            <p>Huérfanos 1841, Santiago, Chile</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <p>Copyright © 2003-2021 – Actuel Marx/<em>Intervenciones</em> – Programación Sebastian Jeria L.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: #2e2927;
+  }
+
+  .footer-main {
+    padding: 50px 0;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+
+  .footer-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .footer-links {
+    list-style: none;
+  }
+
+  .footer-links li {
+    margin-bottom: 8px;
+  }
+
+  .footer-links li.indent {
+    padding-left: 15px;
+  }
+
+  .footer-links a {
+    color: #ccc;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+  }
+
+  .footer-links a:hover {
+    color: #be2e2a;
+  }
+
+  .subscription-info {
+    color: #ccc;
+  }
+
+  .lom-logo-box {
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .lom-styled-logo {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .lom-text {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #be2e2a;
+    line-height: 1;
+  }
+
+  .lom-sub {
+    font-size: 0.5rem;
+    color: #333;
+    letter-spacing: 1px;
+    margin-top: 3px;
+  }
+
+  .subscription-info p {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+  }
+
+  .lom-link {
+    color: #ccc;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+  }
+
+  .lom-link:hover {
+    color: #be2e2a;
+  }
+
+  .info-content p {
+    color: #ccc;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    line-height: 1.6;
+  }
+
+  .footer-bottom {
+    background: #252220;
+    padding: 15px 0;
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    color: #888;
+    font-size: 0.85rem;
+  }
+
+  .footer-bottom em {
+    font-style: italic;
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .footer-column {
+      text-align: center;
+    }
+
+    .footer-links li.indent {
+      padding-left: 0;
+    }
+
+    .lom-logo {
+      display: flex;
+      justify-content: center;
+    }
+  }
+</style>
