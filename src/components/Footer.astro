@@ -1,15 +1,26 @@
 ---
+import * as footerInfo from "../content/footer.md";
+const { title, lines } = footerInfo.frontmatter;
+
 const footerLinks = [
-  { label: 'INICIO', href: '/' },
-  { label: 'NUMERO ACTUAL', href: '/numero-actual' },
-  { label: 'NUMEROS ANTERIORES', href: '/numeros-anteriores' },
-  { label: 'CONVOCATORIAS', href: '/convocatorias' },
-  { label: 'SOBRE LA REVISTA', href: '#' },
-  { label: 'ACERCA DE LA REVISTA', href: '/acerca-de-la-revista', indent: true },
-  { label: 'COMITÉ EDITORIAL', href: '/comite-editorial', indent: true },
-  { label: 'NORMAS DE PUBLICACIÓN', href: '/normas-de-publicacion', indent: true },
-  { label: 'NOTICIAS Y EVENTOS', href: '/noticias-y-eventos' },
-  { label: 'CONTACTANOS', href: '/contactanos' },
+  { label: "INICIO", href: "/" },
+  { label: "NUMERO ACTUAL", href: "/numero-actual" },
+  { label: "NUMEROS ANTERIORES", href: "/numeros-anteriores" },
+  { label: "CONVOCATORIAS", href: "/convocatorias" },
+  { label: "SOBRE LA REVISTA", href: "#" },
+  {
+    label: "ACERCA DE LA REVISTA",
+    href: "/acerca-de-la-revista",
+    indent: true,
+  },
+  { label: "COMITÉ EDITORIAL", href: "/comite-editorial", indent: true },
+  {
+    label: "NORMAS DE PUBLICACIÓN",
+    href: "/normas-de-publicacion",
+    indent: true,
+  },
+  { label: "NOTICIAS Y EVENTOS", href: "/noticias-y-eventos" },
+  { label: "CONTACTANOS", href: "/contactanos" },
 ];
 ---
 
@@ -20,39 +31,46 @@ const footerLinks = [
         <div class="footer-column">
           <h3 class="footer-title">La Revista</h3>
           <ul class="footer-links">
-            {footerLinks.map((link) => (
-              <li class={link.indent ? 'indent' : ''}>
-                <a href={link.href}>{link.label}</a>
-              </li>
-            ))}
+            {
+              footerLinks.map((link) => (
+                <li class={link.indent ? "indent" : ""}>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))
+            }
           </ul>
         </div>
 
         <div class="footer-column">
           <h3 class="footer-title">Suscripción</h3>
           <div class="subscription-info">
-            <a href="https://lom.cl" target="_blank" rel="noopener noreferrer" class="lom-logo-box">
+            <a
+              href="https://lom.cl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="lom-logo-box"
+            >
               <div class="lom-styled-logo">
                 <span class="lom-text">LOM</span>
                 <span class="lom-sub">EDICIONES</span>
               </div>
             </a>
             <p>Edición papel</p>
-            <a href="https://www.lom.cl" target="_blank" rel="noopener noreferrer" class="lom-link">
+            <a
+              href="https://www.lom.cl"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="lom-link"
+            >
               www.lom.cl
             </a>
           </div>
         </div>
 
         <div class="footer-column">
-          <h3 class="footer-title">Informaciones</h3>
+          <h3 class="footer-title">{title}</h3>
           <div class="info-content">
-            <p>María Emilia Tijoux Merino/</p>
-            <p>Registro de propiedad intelectual</p>
-            <p>N° 158.253</p>
-            <p>ISSN: 0718-0179</p>
-            <p>www.actuelmarxint.cl</p>
-            <p>Huérfanos 1841, Santiago, Chile</p>
+            {lines.map((line) => <p>{line}</p>)}
           </div>
         </div>
       </div>
@@ -61,7 +79,7 @@ const footerLinks = [
 
   <div class="footer-bottom">
     <div class="container">
-      <p>Copyright © 2003-2021 – Actuel Marx/<em>Intervenciones</em> – Programación Sebastian Jeria L.</p>
+      <p>Copyright © 2003-2021 – Actuel Marx/<em>Intervenciones</em></p>
     </div>
   </div>
 </footer>
@@ -88,7 +106,7 @@ const footerLinks = [
   }
 
   .footer-title {
-    font-family: 'Libre Baskerville', serif;
+    font-family: "Libre Baskerville", serif;
     font-size: 1.3rem;
     font-weight: 400;
     color: #fff;
@@ -141,7 +159,7 @@ const footerLinks = [
   }
 
   .lom-text {
-    font-family: 'Libre Baskerville', serif;
+    font-family: "Libre Baskerville", serif;
     font-size: 1.5rem;
     font-weight: 700;
     color: #be2e2a;
