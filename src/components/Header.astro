@@ -1,0 +1,114 @@
+---
+---
+
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <a href="/" class="logo">
+        <span class="logo-actuel">Actuel</span>
+        <span class="logo-marx">Marx</span>
+        <span class="logo-intervenciones">Intervenciones</span>
+      </a>
+      <div class="tagline">
+        <span>UNA VARIANTE EDITORIAL DE LA REVISTA FRANCESA <em>ACTUEL MARX</em></span>
+        <span class="issn">ISSN:0718-0179</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    background: #fff;
+    padding: 20px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .logo {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+
+  .logo-actuel {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #be2e2a;
+    letter-spacing: -2px;
+  }
+
+  .logo-marx {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2e2927;
+    letter-spacing: -2px;
+    margin-left: 2px;
+  }
+
+  .logo-intervenciones {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 2.5rem;
+    color: #2e2927;
+    margin-left: 10px;
+    letter-spacing: 1px;
+  }
+
+  .tagline {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+    font-size: 0.75rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tagline em {
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  .issn {
+    font-weight: 700;
+    color: #333;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 768px) {
+    .header-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .logo {
+      justify-content: center;
+    }
+
+    .logo-actuel,
+    .logo-marx {
+      font-size: 2rem;
+    }
+
+    .logo-intervenciones {
+      font-size: 1.8rem;
+    }
+
+    .tagline {
+      align-items: center;
+      text-align: center;
+    }
+  }
+</style>
