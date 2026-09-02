@@ -1,12 +1,13 @@
 ---
 import { getCollection } from "astro:content";
+import { withBase } from "../lib/url";
 import PageTemplate from "../components/PageTemplate.astro";
 import EntryList from "../components/EntryList.astro";
 import { Content, frontmatter } from "../content/pages/enciclopedia.md";
 
 const terminos = (await getCollection("enciclopedia")).sort((a, b) => a.data.title.localeCompare(b.data.title));
 const entries = terminos.map((entry) => ({
-    href: `/enciclopedia/${entry.data.slug ?? entry.id}`,
+    href: withBase(`/enciclopedia/${entry.data.slug ?? entry.id}`),
     title: entry.data.title,
     summary: entry.data.summary,
 }));

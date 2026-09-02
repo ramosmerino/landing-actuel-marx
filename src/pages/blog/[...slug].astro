@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import EntryTemplate from "../../components/EntryTemplate.astro";
+import { withBase } from "../../lib/url";
 
 const SECTION_LABELS: Record<string, { href: string; label: string }> = {
     "columnas-de-opinion": { href: "/blog/columnas-de-opinion", label: "Columnas de Opinión" },
@@ -25,7 +26,7 @@ const section = SECTION_LABELS[entry.data.section];
     title={entry.data.title}
     pubDate={entry.data.pubDate}
     summary={entry.data.summary}
-    backHref={section.href}
+    backHref={withBase(section.href)}
     backLabel={section.label}
     Content={Content}
 />

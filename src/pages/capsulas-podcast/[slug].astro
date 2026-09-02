@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import { withBase } from "../../lib/url";
 import EntryTemplate from "../../components/EntryTemplate.astro";
 
 export async function getStaticPaths() {
@@ -18,7 +19,7 @@ const { Content } = await render(entry);
     title={entry.data.title}
     pubDate={entry.data.pubDate}
     summary={entry.data.summary}
-    backHref="/capsulas-podcast"
+    backHref={withBase("/capsulas-podcast")}
     backLabel="Cápsulas / Podcast"
     Content={Content}
 >

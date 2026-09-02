@@ -1,5 +1,11 @@
 ---
+import { withBase } from "../lib/url";
+
 const currentPath = Astro.url.pathname;
+
+function hrefFor(href: string): string {
+  return href === "#" ? href : withBase(href);
+}
 
 const navItems = [
   { label: 'INICIO', href: '/' },
@@ -42,8 +48,8 @@ const navItems = [
       {navItems.map((item) => (
         <li class={`nav-item ${item.dropdown ? 'has-dropdown' : ''}`}>
           <a
-            href={item.href}
-            class={`nav-link ${currentPath === item.href ? 'active' : ''}`}
+            href={hrefFor(item.href)}
+            class={`nav-link ${currentPath === hrefFor(item.href) ? 'active' : ''}`}
           >
             {item.label}
           </a>
@@ -51,7 +57,7 @@ const navItems = [
             <ul class="dropdown">
               {item.dropdown.map((subItem) => (
                 <li>
-                  <a href={subItem.href} class="dropdown-link">
+                  <a href={hrefFor(subItem.href)} class="dropdown-link">
                     {subItem.label}
                   </a>
                 </li>

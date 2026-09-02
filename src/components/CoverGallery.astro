@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { withBase } from "../lib/url";
 
 const covers = (await getCollection("portadas")).sort(
     (a, b) => (a.data.number ?? Infinity) - (b.data.number ?? Infinity),
@@ -10,7 +11,7 @@ const covers = (await getCollection("portadas")).sort(
     {covers.map((cover) => (
         <figure class="cover-item">
             <img
-                src={cover.data.src}
+                src={withBase(cover.data.src)}
                 alt={cover.data.number ? `Actuel Marx Intervenciones N°${cover.data.number}${cover.data.title ? " - " + cover.data.title : ""}` : cover.data.title}
                 loading="lazy"
             />

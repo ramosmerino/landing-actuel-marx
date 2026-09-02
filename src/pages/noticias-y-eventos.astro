@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { withBase } from "../lib/url";
 import PageTemplate from "../components/PageTemplate.astro";
 import EntryList from "../components/EntryList.astro";
 import { Content, frontmatter } from "../content/pages/noticias-y-eventos.md";
@@ -8,7 +9,7 @@ const noticias = (await getCollection("noticias")).sort(
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 const entries = noticias.map((entry) => ({
-    href: `/noticias-y-eventos/${entry.data.slug ?? entry.id}`,
+    href: withBase(`/noticias-y-eventos/${entry.data.slug ?? entry.id}`),
     title: entry.data.title,
     date: entry.data.pubDate,
     summary: entry.data.summary,

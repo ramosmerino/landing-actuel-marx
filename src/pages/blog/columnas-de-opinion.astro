@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { withBase } from "../../lib/url";
 import PageTemplate from "../../components/PageTemplate.astro";
 import EntryList from "../../components/EntryList.astro";
 import { Content, frontmatter } from "../../content/pages/columnas-de-opinion.md";
@@ -8,7 +9,7 @@ const posts = (await getCollection("blog", ({ data }) => data.section === "colum
     (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 const entries = posts.map((entry) => ({
-    href: `/blog/${entry.data.slug ?? entry.id}`,
+    href: withBase(`/blog/${entry.data.slug ?? entry.id}`),
     title: entry.data.title,
     date: entry.data.pubDate,
     summary: entry.data.summary,

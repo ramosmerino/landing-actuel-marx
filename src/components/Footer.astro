@@ -1,7 +1,12 @@
 ---
 import * as footerInfo from "../content/footer.md";
 import { socialLinks } from "../data/social";
+import { withBase } from "../lib/url";
 const { title, lines } = footerInfo.frontmatter;
+
+function hrefFor(href: string): string {
+  return href === "#" ? href : withBase(href);
+}
 
 const footerLinks = [
   { label: "INICIO", href: "/" },
@@ -49,7 +54,7 @@ const footerLinks = [
             {
               footerLinks.map((link) => (
                 <li class={link.indent ? "indent" : ""}>
-                  <a href={link.href}>{link.label}</a>
+                  <a href={hrefFor(link.href)}>{link.label}</a>
                 </li>
               ))
             }

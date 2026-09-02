@@ -1,11 +1,12 @@
 ---
+import { withBase } from "../lib/url";
 ---
 
 <header class="header">
   <div class="container">
     <div class="header-content">
-      <a href="/" class="logo">
-        <img src="/img/logo.jpg" alt="Actuel Marx Intervenciones" />
+      <a href={withBase("/")} class="logo">
+        <img src={withBase("/img/logo.jpg")} alt="Actuel Marx Intervenciones" />
       </a>
       <div class="tagline">
         <span>UNA VARIANTE EDITORIAL DE LA REVISTA FRANCESA <em>ACTUEL MARX</em></span>
