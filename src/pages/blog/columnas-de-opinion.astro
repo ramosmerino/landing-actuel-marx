@@ -1,6 +1,20 @@
 ---
+import { getCollection } from "astro:content";
 import PageTemplate from "../../components/PageTemplate.astro";
+import EntryList from "../../components/EntryList.astro";
 import { Content, frontmatter } from "../../content/pages/columnas-de-opinion.md";
+
+const posts = (await getCollection("blog", ({ data }) => data.section === "columnas-de-opinion")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const entries = posts.map((entry) => ({
+    href: `/blog/${entry.data.slug ?? entry.id}`,
+    title: entry.data.title,
+    date: entry.data.pubDate,
+    summary: entry.data.summary,
+}));
 ---
 
-<PageTemplate frontmatter={frontmatter} Content={Content} />
+<PageTemplate frontmatter={frontmatter} Content={Content}>
+    <EntryList entries={entries} emptyLabel="Aún no hay columnas de opinión publicadas." />
+</PageTemplate>
