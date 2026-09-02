@@ -1,6 +1,18 @@
 ---
+import { getCollection } from "astro:content";
 import PageTemplate from "../components/PageTemplate.astro";
+import EntryList from "../components/EntryList.astro";
 import { Content, frontmatter } from "../content/pages/numeros-anteriores.mdx";
+
+const numeros = (await getCollection("numeros")).sort((a, b) => b.data.number - a.data.number);
+const entries = numeros.map((entry) => ({
+    href: `/numeros-anteriores/${entry.data.slug ?? entry.id}`,
+    title: entry.data.title,
+    date: entry.data.pubDate,
+    summary: entry.data.summary,
+}));
 ---
 
-<PageTemplate frontmatter={frontmatter} Content={Content} />
+<PageTemplate frontmatter={frontmatter} Content={Content}>
+    <EntryList entries={entries} emptyLabel="Aún no hay números publicados en este formato." />
+</PageTemplate>

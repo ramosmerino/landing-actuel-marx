@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from "astro:content";
+import EntryTemplate from "../../components/EntryTemplate.astro";
+
+export async function getStaticPaths() {
+    const numeros = await getCollection("numeros");
+    return numeros.map((entry) => ({
+        params: { slug: entry.data.slug ?? entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<EntryTemplate
+    title={entry.data.title}
+    pubDate={entry.data.pubDate}
+    summary={entry.data.summary}
+    backHref="/numeros-anteriores"
+    backLabel="Números Anteriores"
+    Content={Content}
+/>
