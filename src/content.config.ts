@@ -1,10 +1,19 @@
 import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 
 const pages = defineCollection({
     loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/pages" }),
     schema: z.object({
         title: z.string(),
+    }),
+});
+
+const portadas = defineCollection({
+    loader: file("./src/content/portadas.json"),
+    schema: z.object({
+        number: z.number().int().optional(),
+        title: z.string(),
+        src: z.string(),
     }),
 });
 
@@ -84,6 +93,7 @@ const noticias = defineCollection({
 
 export const collections = {
     pages,
+    portadas,
     numeros,
     convocatorias,
     blog,
