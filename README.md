@@ -2,6 +2,9 @@
 
 Sitio web de Actuel Marx Internvenciones, una revista dedicada a la reflexión política y filosófica.
 
+> ✍️ **¿Necesitas subir un número, una convocatoria o una entrada de blog y no
+> sabes programar?** Sigue la guía paso a paso en [INSTRUCTIVO.md](./INSTRUCTIVO.md) — no requiere saber Git, Astro ni Markdown.
+
 ## 📖 Descripción
 
 Este sitio web presenta el catálogo de publicaciones de Actuel Marx Internvenciones. El sitio cuenta con un diseño único que refleja la identidad visual de la revista.
