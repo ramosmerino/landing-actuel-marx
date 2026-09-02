@@ -118,13 +118,15 @@ pnpm build
 
 Los archivos generados se encontrarán en el directorio `dist/`.
 
-### Desplegar en plataformas
+### Desplegar en GitHub Pages
 
-El sitio está optimizado para desplegarse en:
+El sitio se despliega automáticamente en **GitHub Pages** vía
+`.github/workflows/build.yml`: cada push a `main` construye el sitio y lo
+publica en `https://ramosmerino.github.io/landing-actuel-marx/`.
 
-- **Netlify**: Simplemente conecta el repositorio
-- **Vercel**: Importa el proyecto desde Git
-- **GitHub Pages**: Usa la acción de GitHub Pages
+Requisito único (una sola vez, manual): en el repositorio de GitHub, ir a
+**Settings → Pages → Build and deployment → Source** y seleccionar
+**"GitHub Actions"**.
 
 ## 🤝 Contribución
 

@@ -188,9 +188,9 @@ tiene su propia carpeta y su propio archivo de ejemplo para copiar.
 
 ## 7. ¿Cómo sé si funcionó?
 
-Después de guardar el cambio en GitHub, espera unos minutos y visita la
-página del sitio para revisar que tu contenido aparezca. Si algo no se ve
-como esperabas, revisa que:
+Después de guardar el cambio en GitHub, espera unos minutos y visita
+<https://ramosmerino.github.io/landing-actuel-marx/> para revisar que tu
+contenido aparezca. Si algo no se ve como esperabas, revisa que:
 
 - Las fechas tengan el formato `AAAA-MM-DD`.
 - Los textos con comillas, dos puntos o símbolos especiales estén entre
