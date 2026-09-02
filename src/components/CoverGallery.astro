@@ -1,48 +1,23 @@
 ---
-import fs from "node:fs";
-import path from "node:path";
+import { getCollection } from "astro:content";
 
-const portadasDir = path.join(process.cwd(), "public/img/portadas");
-
-function extractNumber(filename: string): number | null {
-    const match = filename.match(/(?:Actuel-?Marx-?N?_?)(\d+)/i);
-    return match ? Number(match[1]) : null;
-}
-
-function extractTitle(filename: string, number: number | null): string {
-    let name = filename.replace(/\.(webp|png|jpe?g)$/i, "").replace(/_1800x.*$/i, "");
-    if (number !== null) {
-        name = name.replace(new RegExp("(Portada)?Actuel-?Marx-?N?_?" + number + ".*", "i"), "");
-    }
-    return name.replace(/---|--/g, " - ").replace(/[-_]/g, " ").trim();
-}
-
-const covers = fs
-    .readdirSync(portadasDir)
-    .filter((file) => /\.(webp|png|jpe?g)$/i.test(file))
-    .map((file) => {
-        const number = extractNumber(file);
-        return {
-            src: `/img/portadas/${file}`,
-            number,
-            title: extractTitle(file, number),
-        };
-    })
-    .sort((a, b) => (a.number ?? Infinity) - (b.number ?? Infinity));
+const covers = (await getCollection("portadas")).sort(
+    (a, b) => (a.data.number ?? Infinity) - (b.data.number ?? Infinity),
+);
 ---
 
 <div class="cover-grid">
     {covers.map((cover) => (
         <figure class="cover-item">
             <img
-                src={cover.src}
-                alt={cover.number ? `Actuel Marx Intervenciones N°${cover.number}${cover.title ? " - " + cover.title : ""}` : cover.title}
+                src={cover.data.src}
+                alt={cover.data.number ? `Actuel Marx Intervenciones N°${cover.data.number}${cover.data.title ? " - " + cover.data.title : ""}` : cover.data.title}
                 loading="lazy"
             />
-            {(cover.number || cover.title) && (
+            {(cover.data.number || cover.data.title) && (
                 <figcaption>
-                    {cover.number && <span class="cover-number">N°{cover.number}</span>}
-                    {cover.title && <span class="cover-title">{cover.title}</span>}
+                    {cover.data.number && <span class="cover-number">N°{cover.data.number}</span>}
+                    {cover.data.title && <span class="cover-title">{cover.data.title}</span>}
                 </figcaption>
             )}
         </figure>
