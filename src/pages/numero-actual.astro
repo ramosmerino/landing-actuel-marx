@@ -1,4 +1,6 @@
 ---
 import PageTemplate from "../components/PageTemplate.astro";
-import content from "../content/pages/numero-actual.md";
+import { Content, frontmatter } from "../content/pages/numero-actual.md";
 ---
+
+<PageTemplate frontmatter={frontmatter} Content={Content} />
