@@ -10,11 +10,12 @@ const pages = defineCollection({
 
 const portadas = defineCollection({
     loader: file("./src/content/portadas.json"),
-    schema: z.object({
-        number: z.number().int().optional(),
-        title: z.string(),
-        src: z.string(),
-    }),
+    schema: ({ image }) =>
+        z.object({
+            number: z.number().int().optional(),
+            title: z.string(),
+            cover: image(),
+        }),
 });
 
 const numeros = defineCollection({

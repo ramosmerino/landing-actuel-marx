@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import { withBase } from "../lib/url";
+import { Image } from "astro:assets";
 
 const covers = (await getCollection("portadas")).sort(
     (a, b) => (a.data.number ?? Infinity) - (b.data.number ?? Infinity),
@@ -10,10 +10,12 @@ const covers = (await getCollection("portadas")).sort(
 <div class="cover-grid">
     {covers.map((cover) => (
         <figure class="cover-item">
-            <img
-                src={withBase(cover.data.src)}
+            <Image
+                src={cover.data.cover}
                 alt={cover.data.number ? `Actuel Marx Intervenciones N°${cover.data.number}${cover.data.title ? " - " + cover.data.title : ""}` : cover.data.title}
                 loading="lazy"
+                widths={[240, 480]}
+                sizes="(min-width: 900px) 240px, 45vw"
             />
             {(cover.data.number || cover.data.title) && (
                 <figcaption>
