@@ -22,6 +22,7 @@ const { frontmatter, Content } = Astro.props;
         <div class="container">
             <h1>{frontmatter.title}</h1>
             <Content />
+            <slot />
         </div>
     </main>
     <Footer />

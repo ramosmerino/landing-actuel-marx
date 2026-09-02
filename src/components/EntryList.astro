@@ -1,0 +1,85 @@
+---
+import { formatDate } from "../lib/formatDate";
+
+export interface Entry {
+    href: string;
+    title: string;
+    date?: Date;
+    summary?: string;
+}
+
+export interface Props {
+    entries: Entry[];
+    emptyLabel?: string;
+}
+
+const { entries, emptyLabel = "Aún no hay contenido publicado en esta sección." } = Astro.props;
+---
+
+{entries.length === 0 ? (
+    <p class="entry-list-empty">{emptyLabel}</p>
+) : (
+    <ul class="entry-list">
+        {entries.map((entry) => (
+            <li class="entry-list-item">
+                <a href={entry.href}>
+                    <h3>{entry.title}</h3>
+                    {entry.date && <time datetime={entry.date.toISOString()}>{formatDate(entry.date)}</time>}
+                    {entry.summary && <p>{entry.summary}</p>}
+                </a>
+            </li>
+        ))}
+    </ul>
+)}
+
+<style>
+    .entry-list-empty {
+        color: #666;
+        font-style: italic;
+        margin-top: 20px;
+    }
+
+    .entry-list {
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .entry-list-item {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 20px;
+    }
+
+    .entry-list-item a {
+        display: block;
+        color: inherit;
+    }
+
+    .entry-list-item h3 {
+        font-family: "Libre Baskerville", serif;
+        font-size: 1.2rem;
+        color: #2e2927;
+        margin-bottom: 6px;
+        transition: color 0.3s;
+    }
+
+    .entry-list-item a:hover h3 {
+        color: #be2e2a;
+    }
+
+    .entry-list-item time {
+        display: block;
+        font-size: 0.8rem;
+        color: #be2e2a;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+
+    .entry-list-item p {
+        font-size: 0.9rem;
+        color: #555;
+        line-height: 1.6;
+    }
+</style>

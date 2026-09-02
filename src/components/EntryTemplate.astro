@@ -1,0 +1,83 @@
+---
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import Layout from "../layouts/Layout.astro";
+import Header from "./Header.astro";
+import Navigation from "./Navigation.astro";
+import Footer from "./Footer.astro";
+import { formatDate } from "../lib/formatDate";
+
+export interface Props {
+    title: string;
+    pubDate?: Date;
+    summary?: string;
+    backHref: string;
+    backLabel: string;
+    Content: AstroComponentFactory;
+}
+
+const { title, pubDate, summary, backHref, backLabel, Content } = Astro.props;
+---
+
+<Layout title={title}>
+    <Header />
+    <Navigation />
+    <main>
+        <article class="entry container">
+            <a class="entry-back" href={backHref}>&larr; {backLabel}</a>
+            <h1>{title}</h1>
+            {pubDate && <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>}
+            {summary && <p class="entry-summary">{summary}</p>}
+            <slot />
+            <div class="entry-body">
+                <Content />
+            </div>
+        </article>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    main {
+        padding: 40px 0;
+    }
+
+    .entry {
+        max-width: 800px;
+    }
+
+    .entry-back {
+        display: inline-block;
+        margin-bottom: 20px;
+        font-size: 0.85rem;
+        color: #be2e2a;
+        font-weight: 600;
+    }
+
+    .entry time {
+        display: block;
+        font-size: 0.85rem;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 20px;
+    }
+
+    .entry-summary {
+        font-size: 1.1rem;
+        color: #444;
+        line-height: 1.7;
+        margin-bottom: 30px;
+        border-left: 4px solid #be2e2a;
+        padding-left: 20px;
+    }
+
+    .entry-body {
+        font-size: 0.95rem;
+        line-height: 1.8;
+        color: #333;
+    }
+
+    .entry-body :global(p) {
+        margin-bottom: 20px;
+    }
+</style>
