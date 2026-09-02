@@ -15,6 +15,17 @@ const navItems = [
       { label: 'NORMAS DE PUBLICACIÓN', href: '/normas-de-publicacion' },
     ]
   },
+  {
+    label: 'BLOG',
+    href: '#',
+    dropdown: [
+      { label: 'COLUMNAS DE OPINIÓN', href: '/blog/columnas-de-opinion' },
+      { label: 'CUADERNOS TEMÁTICOS', href: '/blog/cuadernos-tematicos' },
+      { label: 'SEPARATAS', href: '/blog/separatas' },
+    ]
+  },
+  { label: 'ENCICLOPEDIA', href: '/enciclopedia' },
+  { label: 'CÁPSULAS / PODCAST', href: '/capsulas-podcast' },
   { label: 'NOTICIAS Y EVENTOS', href: '/noticias-y-eventos' },
   { label: 'CONTACTANOS', href: '/contactanos' },
 ];
@@ -86,6 +97,7 @@ const navItems = [
 
   .nav-list {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     gap: 0;
   }
