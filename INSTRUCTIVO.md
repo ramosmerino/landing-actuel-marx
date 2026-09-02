@@ -171,18 +171,34 @@ tiene su propia carpeta y su propio archivo de ejemplo para copiar.
 
 ---
 
-## 6. Cómo subir una imagen (por ejemplo, una portada)
+## 6. Cómo subir una portada nueva a la galería de "Números Anteriores"
 
-1. Ve a la carpeta `public/img/portadas/` (para portadas de números) o
-   `public/img/` (para otras imágenes).
+Las portadas se optimizan automáticamente (se comprimen y se generan varios
+tamaños), por eso viven en una carpeta distinta a las demás imágenes y se
+registran en un archivo de lista.
+
+1. Ve a la carpeta `src/assets/portadas/`.
 2. Usa **"Add file" → "Upload files"** y arrastra tu imagen.
 3. Nómbrala igual que los archivos de contenido: minúsculas, sin tildes ni
    espacios, con guiones medios. Ejemplo: `actuel-marx-36.webp`.
-4. En el archivo de contenido, referencia la imagen con `/img/...` más el
-   nombre del archivo. Por ejemplo, en un número:
+4. Abre el archivo `src/content/portadas.json` y agrega un bloque nuevo a la
+   lista (cópialo de otro que ya exista y edítalo), por ejemplo:
+   ```json
+   {
+       "id": "36",
+       "number": 36,
+       "title": "Título de la edición",
+       "cover": "../assets/portadas/actuel-marx-36.webp"
+   }
    ```
-   cover: "/img/portadas/actuel-marx-36.webp"
-   ```
+   - No olvides la coma (`,`) después del bloque anterior si agregas el
+     tuyo al final de la lista.
+   - `cover` debe decir exactamente `../assets/portadas/` seguido del
+     nombre del archivo que subiste en el paso 2.
+
+Para cualquier otra imagen que **no** sea una portada (por ejemplo, el
+logo), sube el archivo a la carpeta `public/img/` y referéncialo con
+`/img/` + el nombre del archivo.
 
 ---
 
