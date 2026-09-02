@@ -1,0 +1,97 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+
+const portadasDir = path.join(process.cwd(), "public/img/portadas");
+
+function extractNumber(filename: string): number | null {
+    const match = filename.match(/(?:Actuel-?Marx-?N?_?)(\d+)/i);
+    return match ? Number(match[1]) : null;
+}
+
+function extractTitle(filename: string, number: number | null): string {
+    let name = filename.replace(/\.(webp|png|jpe?g)$/i, "").replace(/_1800x.*$/i, "");
+    if (number !== null) {
+        name = name.replace(new RegExp("(Portada)?Actuel-?Marx-?N?_?" + number + ".*", "i"), "");
+    }
+    return name.replace(/---|--/g, " - ").replace(/[-_]/g, " ").trim();
+}
+
+const covers = fs
+    .readdirSync(portadasDir)
+    .filter((file) => /\.(webp|png|jpe?g)$/i.test(file))
+    .map((file) => {
+        const number = extractNumber(file);
+        return {
+            src: `/img/portadas/${file}`,
+            number,
+            title: extractTitle(file, number),
+        };
+    })
+    .sort((a, b) => (a.number ?? Infinity) - (b.number ?? Infinity));
+---
+
+<div class="cover-grid">
+    {covers.map((cover) => (
+        <figure class="cover-item">
+            <img
+                src={cover.src}
+                alt={cover.number ? `Actuel Marx Intervenciones N°${cover.number}${cover.title ? " - " + cover.title : ""}` : cover.title}
+                loading="lazy"
+            />
+            {(cover.number || cover.title) && (
+                <figcaption>
+                    {cover.number && <span class="cover-number">N°{cover.number}</span>}
+                    {cover.title && <span class="cover-title">{cover.title}</span>}
+                </figcaption>
+            )}
+        </figure>
+    ))}
+</div>
+
+<style>
+    .cover-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 24px;
+        margin-top: 30px;
+    }
+
+    .cover-item {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .cover-item img {
+        width: 100%;
+        aspect-ratio: 3 / 4;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+    }
+
+    .cover-item img:hover {
+        transform: translateY(-4px);
+    }
+
+    figcaption {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.8rem;
+        color: #444;
+        text-align: center;
+    }
+
+    .cover-number {
+        font-family: "Libre Baskerville", serif;
+        font-weight: 700;
+        color: #be2e2a;
+    }
+
+    .cover-title {
+        text-transform: capitalize;
+        color: #666;
+    }
+</style>
