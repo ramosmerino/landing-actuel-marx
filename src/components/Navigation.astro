@@ -66,7 +66,7 @@ const navItems = [
 
 <style>
   .navigation {
-    background: #2e2927;
+    background: var(--color-dark-900);
     position: relative;
     z-index: 100;
   }
@@ -90,7 +90,7 @@ const navItems = [
   .mobile-toggle span {
     width: 25px;
     height: 3px;
-    background: #fff;
+    background: var(--color-white);
     border-radius: 2px;
     transition: all 0.3s;
   }
@@ -109,7 +109,7 @@ const navItems = [
   .nav-link {
     display: block;
     padding: 15px 18px;
-    color: #fff;
+    color: var(--color-white);
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -118,8 +118,8 @@ const navItems = [
 
   .nav-link:hover,
   .nav-link.active {
-    background: #be2e2a;
-    color: #fff;
+    background: var(--color-primary);
+    color: var(--color-white);
   }
 
   .has-dropdown:hover .dropdown {
@@ -131,24 +131,24 @@ const navItems = [
     position: absolute;
     top: 100%;
     left: 0;
-    background: #3a3633;
+    background: var(--color-dark-925);
     min-width: 220px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 12px var(--overlay-black-30);
     z-index: 101;
   }
 
   .dropdown-link {
     display: block;
     padding: 12px 18px;
-    color: #fff;
+    color: var(--color-white);
     font-size: 0.8rem;
     letter-spacing: 0.3px;
     transition: background 0.3s;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--overlay-white-10);
   }
 
   .dropdown-link:hover {
-    background: #be2e2a;
+    background: var(--color-primary);
   }
 
   @media (max-width: 900px) {
@@ -163,8 +163,8 @@ const navItems = [
       top: 100%;
       left: 0;
       right: 0;
-      background: #2e2927;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      background: var(--color-dark-900);
+      box-shadow: 0 4px 12px var(--overlay-black-30);
     }
 
     .nav-list.open {
@@ -173,13 +173,13 @@ const navItems = [
 
     .nav-link {
       padding: 12px 20px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      border-bottom: 1px solid var(--overlay-white-10);
     }
 
     .dropdown {
       position: static;
       box-shadow: none;
-      background: #252220;
+      background: var(--color-dark-950);
     }
 
     .has-dropdown:hover .dropdown {

@@ -34,7 +34,7 @@ const { entries, emptyLabel = "Aún no hay contenido publicado en esta sección.
 
 <style>
     .entry-list-empty {
-        color: #666;
+        color: var(--color-neutral-500);
         font-style: italic;
         margin-top: 20px;
     }
@@ -47,7 +47,7 @@ const { entries, emptyLabel = "Aún no hay contenido publicado en esta sección.
     }
 
     .entry-list-item {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--color-neutral-200);
         padding-bottom: 20px;
     }
 
@@ -59,19 +59,19 @@ const { entries, emptyLabel = "Aún no hay contenido publicado en esta sección.
     .entry-list-item h3 {
         font-family: "Libre Baskerville", serif;
         font-size: 1.2rem;
-        color: #2e2927;
+        color: var(--color-dark-900);
         margin-bottom: 6px;
         transition: color 0.3s;
     }
 
     .entry-list-item a:hover h3 {
-        color: #be2e2a;
+        color: var(--color-primary);
     }
 
     .entry-list-item time {
         display: block;
         font-size: 0.8rem;
-        color: #be2e2a;
+        color: var(--color-primary);
         text-transform: uppercase;
         letter-spacing: 0.5px;
         margin-bottom: 8px;
@@ -79,7 +79,7 @@ const { entries, emptyLabel = "Aún no hay contenido publicado en esta sección.
 
     .entry-list-item p {
         font-size: 0.9rem;
-        color: #555;
+        color: var(--color-neutral-600);
         line-height: 1.6;
     }
 </style>

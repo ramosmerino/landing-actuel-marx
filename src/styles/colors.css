@@ -1,0 +1,44 @@
+:root {
+    /* Marca */
+    --color-primary: #be2e2a;
+    --color-primary-dark: #8a2220;
+    --color-primary-alpha-90: rgba(190, 46, 42, 0.9);
+    --color-gold-accent: #d4a84a;
+    --color-slide-fallback: #1a3a5c;
+
+    /* Base */
+    --color-black: #000;
+    --color-white: #fff;
+
+    /* Oscuros (fondos de header, nav, footer y degradados) */
+    --color-dark-900: #2e2927;
+    --color-dark-925: #3a3633;
+    --color-dark-950: #252220;
+    --color-dark-975: #1a1817;
+    --color-dark-gradient-light: #4a4643;
+
+    /* Neutros (texto y fondos claros) */
+    --color-neutral-800: #333;
+    --color-neutral-700: #444;
+    --color-neutral-600: #555;
+    --color-neutral-500: #666;
+    --color-neutral-400: #888;
+    --color-neutral-300: #ccc;
+    --color-neutral-200: #eee;
+    --color-neutral-100: #fafafa;
+
+    /* Superposiciones (sombras y overlays translúcidos) */
+    --overlay-black-10: rgba(0, 0, 0, 0.1);
+    --overlay-black-15: rgba(0, 0, 0, 0.15);
+    --overlay-black-20: rgba(0, 0, 0, 0.2);
+    --overlay-black-30: rgba(0, 0, 0, 0.3);
+    --overlay-black-40: rgba(0, 0, 0, 0.4);
+    --overlay-black-50: rgba(0, 0, 0, 0.5);
+    --overlay-white-10: rgba(255, 255, 255, 0.1);
+    --overlay-white-15: rgba(255, 255, 255, 0.15);
+    --overlay-white-20: rgba(255, 255, 255, 0.2);
+    --overlay-white-30: rgba(255, 255, 255, 0.3);
+    --overlay-white-40: rgba(255, 255, 255, 0.4);
+    --overlay-white-80: rgba(255, 255, 255, 0.8);
+    --overlay-white-90: rgba(255, 255, 255, 0.9);
+}
