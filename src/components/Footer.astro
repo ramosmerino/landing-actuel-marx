@@ -1,5 +1,6 @@
 ---
 import * as footerInfo from "../content/footer.md";
+import { socialLinks } from "../data/social";
 const { title, lines } = footerInfo.frontmatter;
 
 const footerLinks = [
@@ -87,6 +88,21 @@ const footerLinks = [
             {lines.map((line) => <p>{line}</p>)}
           </div>
         </div>
+
+        <div class="footer-column">
+          <h3 class="footer-title">Síguenos</h3>
+          <ul class="social-links">
+            {
+              socialLinks.map((social) => (
+                <li>
+                  <a href={social.href} target="_blank" rel="noopener noreferrer">
+                    {social.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -115,8 +131,26 @@ const footerLinks = [
 
   .footer-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 40px;
+  }
+
+  .social-links {
+    list-style: none;
+  }
+
+  .social-links li {
+    margin-bottom: 8px;
+  }
+
+  .social-links a {
+    color: #ccc;
+    font-size: 0.85rem;
+    transition: color 0.3s;
+  }
+
+  .social-links a:hover {
+    color: #be2e2a;
   }
 
   .footer-title {
@@ -222,6 +256,12 @@ const footerLinks = [
 
   .footer-bottom em {
     font-style: italic;
+  }
+
+  @media (max-width: 1024px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 900px) {
