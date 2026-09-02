@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from "astro:content";
+import EntryTemplate from "../../components/EntryTemplate.astro";
+
+export async function getStaticPaths() {
+    const capsulas = await getCollection("capsulas");
+    return capsulas.map((entry) => ({
+        params: { slug: entry.data.slug ?? entry.id },
+        props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<EntryTemplate
+    title={entry.data.title}
+    pubDate={entry.data.pubDate}
+    summary={entry.data.summary}
+    backHref="/capsulas-podcast"
+    backLabel="Cápsulas / Podcast"
+    Content={Content}
+>
+    {entry.data.videoUrl && (
+        <div class="entry-embed">
+            <iframe
+                src={entry.data.videoUrl}
+                title={entry.data.title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+            />
+        </div>
+    )}
+    {entry.data.audioUrl && (
+        <audio class="entry-audio" controls src={entry.data.audioUrl} />
+    )}
+</EntryTemplate>
+
+<style>
+    .entry-embed {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        margin-bottom: 30px;
+    }
+
+    .entry-embed iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 4px;
+    }
+
+    .entry-audio {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+</style>
