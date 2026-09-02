@@ -4,7 +4,16 @@ import path from "node:path";
 
 const portadasDir = path.join(process.cwd(), "public/img/portadas");
 
+// Estas portadas no siguen ninguna convención de nombre, así que su número se fija a mano.
+const NUMBER_OVERRIDES: Record<string, number> = {
+    "WhatsAppImage2024-03-11at15.19.21_1800x.webp": 33,
+    "Los-68s_1800x.webp": 25,
+};
+
 function extractNumber(filename: string): number | null {
+    if (filename in NUMBER_OVERRIDES) {
+        return NUMBER_OVERRIDES[filename];
+    }
     const match = filename.match(/(?:Actuel-?Marx-?N?_?)(\d+)/i);
     return match ? Number(match[1]) : null;
 }
