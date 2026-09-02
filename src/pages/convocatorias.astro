@@ -1,6 +1,20 @@
 ---
+import { getCollection } from "astro:content";
 import PageTemplate from "../components/PageTemplate.astro";
+import EntryList from "../components/EntryList.astro";
 import { Content, frontmatter } from "../content/pages/convocatorias.md";
+
+const convocatorias = (await getCollection("convocatorias")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const entries = convocatorias.map((entry) => ({
+    href: `/convocatorias/${entry.data.slug ?? entry.id}`,
+    title: `${entry.data.title} (${entry.data.status === "abierta" ? "Abierta" : "Cerrada"})`,
+    date: entry.data.pubDate,
+    summary: entry.data.summary,
+}));
 ---
 
-<PageTemplate frontmatter={frontmatter} Content={Content} />
+<PageTemplate frontmatter={frontmatter} Content={Content}>
+    <EntryList entries={entries} emptyLabel="Aún no hay convocatorias publicadas." />
+</PageTemplate>
