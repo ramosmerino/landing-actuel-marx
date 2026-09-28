@@ -1,13 +1,14 @@
 ---
 import { getCollection } from "astro:content";
 import { withBase } from "../lib/url";
+import { getNumeroSlug } from "../lib/numeros";
 import PageTemplate from "../components/PageTemplate.astro";
 import EntryList from "../components/EntryList.astro";
 import { Content, frontmatter } from "../content/pages/numeros-anteriores.mdx";
 
 const numeros = (await getCollection("numeros")).sort((a, b) => b.data.number - a.data.number);
 const entries = numeros.map((entry) => ({
-    href: withBase(`/numeros-anteriores/${entry.data.slug ?? entry.id}`),
+    href: withBase(`/numeros-anteriores/${getNumeroSlug(entry)}`),
     title: entry.data.title,
     date: entry.data.pubDate,
     summary: entry.data.summary,

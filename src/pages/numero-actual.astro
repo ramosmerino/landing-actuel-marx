@@ -1,6 +1,49 @@
 ---
-import PageTemplate from "../components/PageTemplate.astro";
-import { Content, frontmatter } from "../content/pages/numero-actual.md";
+import { getCollection, render } from "astro:content";
+
+import NumeroTemplate from "../components/NumeroTemplate.astro";
+import {
+    buildSeparataHrefMap,
+    getCurrentNumero,
+    getPortadaByNumber,
+    resolvePurchaseUrl,
+} from "../lib/numeros";
+import { withBase } from "../lib/url";
+
+const numeros = await getCollection("numeros");
+const entry = getCurrentNumero(numeros);
+
+if (!entry) {
+    return Astro.redirect(withBase("/numeros-anteriores"));
+}
+
+const [portadas, blog] = await Promise.all([
+    getCollection("portadas"),
+    getCollection("blog"),
+]);
+
+const portada = getPortadaByNumber(portadas, entry.data.number);
+const separataHrefs = buildSeparataHrefMap(blog);
+const { Content } = await render(entry);
+
+const coverImage = portada?.data.cover;
+const coverAlt = portada?.data.title
+    ? `Actuel Marx Intervenciones N°${entry.data.number} — ${portada.data.title}`
+    : undefined;
 ---
 
-<PageTemplate frontmatter={frontmatter} Content={Content} />
+<NumeroTemplate
+    title={entry.data.title}
+    number={entry.data.number}
+    pubDate={entry.data.pubDate}
+    summary={entry.data.summary}
+    articles={entry.data.articles}
+    separataHrefs={separataHrefs}
+    purchaseUrl={resolvePurchaseUrl(entry, portada)}
+    pdfUrl={entry.data.pdfUrl}
+    coverImage={coverImage}
+    coverAlt={coverAlt}
+    backHref={withBase("/numeros-anteriores")}
+    backLabel="Números Anteriores"
+    Content={Content}
+/>

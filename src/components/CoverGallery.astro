@@ -2,29 +2,100 @@
 import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 
-const covers = (await getCollection("portadas")).sort(
+import {
+    buildNumerosByNumber,
+    getNumeroSlug,
+    resolvePurchaseUrl,
+} from "../lib/numeros";
+import { withBase } from "../lib/url";
+
+const [covers, numeros] = await Promise.all([
+    getCollection("portadas"),
+    getCollection("numeros"),
+]);
+
+const numerosByNumber = buildNumerosByNumber(numeros);
+
+const sortedCovers = covers.sort(
     (a, b) => (a.data.number ?? Infinity) - (b.data.number ?? Infinity),
 );
 ---
 
 <div class="cover-grid">
-    {covers.map((cover) => (
-        <figure class="cover-item">
-            <Image
-                src={cover.data.cover}
-                alt={cover.data.number ? `Actuel Marx Intervenciones N°${cover.data.number}${cover.data.title ? " - " + cover.data.title : ""}` : cover.data.title}
-                loading="lazy"
-                widths={[240, 480]}
-                sizes="(min-width: 900px) 240px, 45vw"
-            />
-            {(cover.data.number || cover.data.title) && (
-                <figcaption>
-                    {cover.data.number && <span class="cover-number">N°{cover.data.number}</span>}
-                    {cover.data.title && <span class="cover-title">{cover.data.title}</span>}
-                </figcaption>
-            )}
-        </figure>
-    ))}
+    {sortedCovers.map((cover) => {
+        const numero =
+            cover.data.number !== undefined
+                ? numerosByNumber.get(cover.data.number)
+                : undefined;
+        const detailHref = numero
+            ? withBase(`/numeros-anteriores/${getNumeroSlug(numero)}`)
+            : undefined;
+        const purchaseUrl =
+            numero && cover.data.number !== undefined
+                ? resolvePurchaseUrl(numero, cover)
+                : cover.data.purchaseUrl;
+
+        const alt = cover.data.number
+            ? `Actuel Marx Intervenciones N°${cover.data.number}${cover.data.title ? " - " + cover.data.title : ""}`
+            : cover.data.title;
+
+        return (
+            <figure class="cover-item">
+                {detailHref ? (
+                    <a class="cover-link" href={detailHref}>
+                        <Image
+                            src={cover.data.cover}
+                            alt={alt}
+                            loading="lazy"
+                            widths={[240, 480]}
+                            sizes="(min-width: 900px) 240px, 45vw"
+                        />
+                    </a>
+                ) : (
+                    <Image
+                        src={cover.data.cover}
+                        alt={alt}
+                        loading="lazy"
+                        widths={[240, 480]}
+                        sizes="(min-width: 900px) 240px, 45vw"
+                    />
+                )}
+                {(cover.data.number || cover.data.title) && (
+                    <figcaption>
+                        {detailHref ? (
+                            <a class="cover-detail-link" href={detailHref}>
+                                {cover.data.number && (
+                                    <span class="cover-number">N°{cover.data.number}</span>
+                                )}
+                                {cover.data.title && (
+                                    <span class="cover-title">{cover.data.title}</span>
+                                )}
+                            </a>
+                        ) : (
+                            <>
+                                {cover.data.number && (
+                                    <span class="cover-number">N°{cover.data.number}</span>
+                                )}
+                                {cover.data.title && (
+                                    <span class="cover-title">{cover.data.title}</span>
+                                )}
+                            </>
+                        )}
+                        {purchaseUrl && (
+                            <a
+                                class="cover-lom-link"
+                                href={purchaseUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                LOM
+                            </a>
+                        )}
+                    </figcaption>
+                )}
+            </figure>
+        );
+    })}
 </div>
 
 <style>
@@ -41,6 +112,10 @@ const covers = (await getCollection("portadas")).sort(
         gap: 8px;
     }
 
+    .cover-link {
+        display: block;
+    }
+
     .cover-item img {
         width: 100%;
         aspect-ratio: 3 / 4;
@@ -50,7 +125,7 @@ const covers = (await getCollection("portadas")).sort(
         transition: transform 0.3s ease;
     }
 
-    .cover-item img:hover {
+    .cover-link:hover img {
         transform: translateY(-4px);
     }
 
@@ -60,6 +135,18 @@ const covers = (await getCollection("portadas")).sort(
         font-size: 0.8rem;
         color: var(--color-neutral-700);
         text-align: center;
+        gap: 4px;
+    }
+
+    .cover-detail-link {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .cover-detail-link:hover .cover-number {
+        text-decoration: underline;
     }
 
     .cover-number {
@@ -71,5 +158,17 @@ const covers = (await getCollection("portadas")).sort(
     .cover-title {
         text-transform: capitalize;
         color: var(--color-neutral-500);
+    }
+
+    .cover-lom-link {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--color-primary);
+        text-decoration: none;
+        letter-spacing: 0.03em;
+    }
+
+    .cover-lom-link:hover {
+        text-decoration: underline;
     }
 </style>

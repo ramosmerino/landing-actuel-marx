@@ -15,7 +15,14 @@ const portadas = defineCollection({
             number: z.number().int().optional(),
             title: z.string(),
             cover: image(),
+            purchaseUrl: z.string().url().optional(),
         }),
+});
+
+const numeroArticleSchema = z.object({
+    title: z.string(),
+    authors: z.string(),
+    separataSlug: z.string().optional(),
 });
 
 const numeros = defineCollection({
@@ -27,6 +34,8 @@ const numeros = defineCollection({
         summary: z.string(),
         cover: z.string().optional(),
         purchaseUrl: z.string().url().optional(),
+        pdfUrl: z.string().url().optional(),
+        articles: z.array(numeroArticleSchema).default([]),
         slug: z.string().optional(),
     }),
 });
@@ -52,6 +61,7 @@ const blog = defineCollection({
         section: z.enum(["columnas-de-opinion", "cuadernos-tematicos", "separatas"]),
         summary: z.string(),
         tags: z.array(z.string()).default([]),
+        issueNumber: z.number().int().optional(),
         slug: z.string().optional(),
     }),
 });

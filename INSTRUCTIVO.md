@@ -106,13 +106,46 @@ tiene su propia carpeta y su propio archivo de ejemplo para copiar.
 
 - Carpeta: `src/content/numeros/`
 - Archivo de ejemplo: `numero-34.mdx`
+- Convención de nombre: `numero-{n}.mdx` (ej: `numero-22.mdx`), que define la URL
+  `/numeros-anteriores/numero-22`. El **número actual** del sitio es siempre la
+  entrada con el `number` más alto.
+- La portada se toma de `src/content/portadas.json` (mismo `number`); no hace falta
+  repetir la imagen en el MDX salvo casos excepcionales.
 - Datos a completar en el frontmatter:
   - `title`: por ejemplo `"N°36"`
   - `number`: el número de la edición, sin comillas, por ejemplo `36`
   - `pubDate`: fecha de publicación, formato `AAAA-MM-DD` (ej: `2026-06-01`)
-  - `summary`: resumen o tabla de contenidos, en una frase
-  - `cover` *(opcional)*: la ruta de la imagen de portada, ver sección 6
-  - `purchaseUrl` *(opcional)*: enlace de venta, si existe
+  - `summary`: resumen del número, en una o dos frases
+  - `articles`: lista del índice (títulos y autores). Si aún no está listo, deja
+    `articles: []` — en el sitio se verá «Índice en preparación».
+  - `pdfUrl` *(opcional)*: enlace externo al PDF del número completo, si existe
+  - `purchaseUrl` *(opcional)*: enlace de venta en LOM; si no lo pones aquí, se
+    usará el de `portadas.json` para ese mismo `number`
+- Cada ítem de `articles` lleva:
+  - `title`: título del artículo
+  - `authors`: autores en una sola línea (ej: `"García, A.; Pérez, B."`)
+  - `separataSlug` *(opcional)*: identificador de la entrada en el blog, **solo si**
+    la separata ya está publicada. Debe coincidir con el nombre del archivo sin
+    extensión, incluyendo la carpeta, por ejemplo `separatas/mi-articulo` para el
+    archivo `src/content/blog/separatas/mi-articulo.mdx`. Si la separata no existe
+    aún, omite este campo: el título se mostrará sin enlace.
+- Ejemplo de índice con enlace a separata:
+
+```yaml
+articles:
+  - title: "Título del artículo"
+    authors: "Apellido, N."
+    separataSlug: separatas/mi-articulo
+  - title: "Otro artículo sin separata aún"
+    authors: "Otro, A.; Segundo, B."
+```
+
+- **Venta en LOM:** el enlace de compra recomendado para todas las portadas vive en
+  `src/content/portadas.json`, campo `purchaseUrl` junto a cada número (ej:
+  `https://lom.cl/products/...`). La galería de «Números anteriores» y la ficha del
+  número lo usan automáticamente. Para generar archivos `numero-{n}.mdx` vacíos a
+  partir de las portadas (sin sobrescribir los ya editados), ejecuta:
+  `node scripts/scaffold-numeros-from-portadas.mjs`
 
 ### 📢 Convocatoria
 
@@ -139,6 +172,8 @@ tiene su propia carpeta y su propio archivo de ejemplo para copiar.
     lo cambies aunque muevas el archivo)
   - `tags` *(opcional)*: lista de palabras clave, por ejemplo
     `["columna", "género"]`
+  - `issueNumber` *(opcional, separatas)*: número de la revista al que pertenece
+    el artículo; ayuda a documentar la relación con el índice del número
 
 ### 📚 Enciclopedia
 

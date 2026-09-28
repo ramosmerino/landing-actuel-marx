@@ -1,24 +1,51 @@
 ---
 import { getCollection, render } from "astro:content";
+
+import NumeroTemplate from "../../components/NumeroTemplate.astro";
+import {
+    buildSeparataHrefMap,
+    getNumeroSlug,
+    getPortadaByNumber,
+    resolvePurchaseUrl,
+} from "../../lib/numeros";
 import { withBase } from "../../lib/url";
-import EntryTemplate from "../../components/EntryTemplate.astro";
 
 export async function getStaticPaths() {
     const numeros = await getCollection("numeros");
     return numeros.map((entry) => ({
-        params: { slug: entry.data.slug ?? entry.id },
+        params: { slug: getNumeroSlug(entry) },
         props: { entry },
     }));
 }
 
 const { entry } = Astro.props;
+
+const [portadas, blog] = await Promise.all([
+    getCollection("portadas"),
+    getCollection("blog"),
+]);
+
+const portada = getPortadaByNumber(portadas, entry.data.number);
+const separataHrefs = buildSeparataHrefMap(blog);
 const { Content } = await render(entry);
+
+const coverImage = portada?.data.cover;
+const coverAlt = portada?.data.title
+    ? `Actuel Marx Intervenciones N°${entry.data.number} — ${portada.data.title}`
+    : undefined;
 ---
 
-<EntryTemplate
+<NumeroTemplate
     title={entry.data.title}
+    number={entry.data.number}
     pubDate={entry.data.pubDate}
     summary={entry.data.summary}
+    articles={entry.data.articles}
+    separataHrefs={separataHrefs}
+    purchaseUrl={resolvePurchaseUrl(entry, portada)}
+    pdfUrl={entry.data.pdfUrl}
+    coverImage={coverImage}
+    coverAlt={coverAlt}
     backHref={withBase("/numeros-anteriores")}
     backLabel="Números Anteriores"
     Content={Content}
