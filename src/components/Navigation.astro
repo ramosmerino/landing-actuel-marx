@@ -1,4 +1,5 @@
 ---
+import { navItems } from "../data/navigation";
 import { withBase } from "../lib/url";
 
 const currentPath = Astro.url.pathname;
@@ -6,35 +7,6 @@ const currentPath = Astro.url.pathname;
 function hrefFor(href: string): string {
   return href === "#" ? href : withBase(href);
 }
-
-const navItems = [
-  { label: 'INICIO', href: '/' },
-  { label: 'NUMERO ACTUAL', href: '/numero-actual' },
-  { label: 'NUMEROS ANTERIORES', href: '/numeros-anteriores' },
-  { label: 'CONVOCATORIAS', href: '/convocatorias' },
-  {
-    label: 'SOBRE LA REVISTA',
-    href: '#',
-    dropdown: [
-      { label: 'ACERCA DE LA REVISTA', href: '/acerca-de-la-revista' },
-      { label: 'COMITÉ EDITORIAL', href: '/comite-editorial' },
-      { label: 'NORMAS DE PUBLICACIÓN', href: '/normas-de-publicacion' },
-    ]
-  },
-  {
-    label: 'BLOG',
-    href: '#',
-    dropdown: [
-      { label: 'COLUMNAS DE OPINIÓN', href: '/blog/columnas-de-opinion' },
-      { label: 'CUADERNOS TEMÁTICOS', href: '/blog/cuadernos-tematicos' },
-      { label: 'SEPARATAS', href: '/blog/separatas' },
-      { label: 'CÁPSULAS / PODCAST', href: '/capsulas-podcast' },
-      { label: 'NOTICIAS Y EVENTOS', href: '/noticias-y-eventos' },
-    ]
-  },
-  { label: 'ENCICLOPEDIA', href: '/enciclopedia' },
-  { label: 'CONTACTANOS', href: '/contactanos' },
-];
 ---
 
 <nav class="navigation">

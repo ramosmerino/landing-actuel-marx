@@ -1,5 +1,6 @@
 ---
 import * as footerInfo from "../content/footer.md";
+import { footerLinks } from "../data/navigation";
 import { socialLinks } from "../data/social";
 import { withBase } from "../lib/url";
 const { title, lines, lineHrefs = {} } = footerInfo.frontmatter as {
@@ -11,45 +12,6 @@ const { title, lines, lineHrefs = {} } = footerInfo.frontmatter as {
 function hrefFor(href: string): string {
   return href === "#" ? href : withBase(href);
 }
-
-const footerLinks = [
-  { label: "INICIO", href: "/" },
-  { label: "NUMERO ACTUAL", href: "/numero-actual" },
-  { label: "NUMEROS ANTERIORES", href: "/numeros-anteriores" },
-  { label: "CONVOCATORIAS", href: "/convocatorias" },
-  { label: "SOBRE LA REVISTA", href: "#" },
-  {
-    label: "ACERCA DE LA REVISTA",
-    href: "/acerca-de-la-revista",
-    indent: true,
-  },
-  { label: "COMITÉ EDITORIAL", href: "/comite-editorial", indent: true },
-  {
-    label: "NORMAS DE PUBLICACIÓN",
-    href: "/normas-de-publicacion",
-    indent: true,
-  },
-  { label: "BLOG", href: "#" },
-  {
-    label: "COLUMNAS DE OPINIÓN",
-    href: "/blog/columnas-de-opinion",
-    indent: true,
-  },
-  {
-    label: "CUADERNOS TEMÁTICOS",
-    href: "/blog/cuadernos-tematicos",
-    indent: true,
-  },
-  { label: "SEPARATAS", href: "/blog/separatas", indent: true },
-  { label: "CÁPSULAS / PODCAST", href: "/capsulas-podcast", indent: true },
-  {
-    label: "NOTICIAS Y EVENTOS",
-    href: "/noticias-y-eventos",
-    indent: true,
-  },
-  { label: "ENCICLOPEDIA", href: "/enciclopedia" },
-  { label: "CONTACTANOS", href: "/contactanos" },
-];
 ---
 
 <footer class="footer">
