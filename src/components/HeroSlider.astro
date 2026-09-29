@@ -36,7 +36,13 @@ const slides = [
   <div class="slider-container">
     <div class="slides">
       {slides.map((slide, index) => (
-        <div class={`slide ${index === 0 ? 'active' : ''}`} data-index={index}>
+        <div
+          class:list={[
+            "slide",
+            { active: index === 0, "slide--quote": slide.type === "quote" },
+          ]}
+          data-index={index}
+        >
           {slide.type === 'book' ? (
             <>
               <div class="slide-image">
@@ -62,19 +68,12 @@ const slides = [
               </div>
             </>
           ) : (
-            <>
-              <div class="slide-image quote-image">
-                <div class="marx-portrait">
-                  <div class="portrait-inner">K.M.</div>
-                </div>
-              </div>
-              <div class="slide-content">
-                <blockquote class="slide-quote">
-                  <p>{slide.text}</p>
-                  <cite>{slide.author}</cite>
-                </blockquote>
-              </div>
-            </>
+            <div class="slide-content">
+              <blockquote class="slide-quote">
+                <p>{slide.text}</p>
+                <cite>{slide.author}</cite>
+              </blockquote>
+            </div>
           )}
         </div>
       ))}
@@ -140,6 +139,17 @@ const slides = [
   .slide.active {
     opacity: 1;
     visibility: visible;
+  }
+
+  .slide--quote {
+    justify-content: center;
+  }
+
+  .slide--quote .slide-content {
+    flex: none;
+    max-width: 720px;
+    padding-left: 0;
+    text-align: center;
   }
 
   .slide-image {
@@ -227,30 +237,6 @@ const slides = [
     text-align: right;
   }
 
-  /* Marx Quote Portrait */
-  .quote-image {
-    flex: 0 0 35%;
-  }
-
-  .marx-portrait {
-    width: 180px;
-    height: 220px;
-    background: linear-gradient(145deg, var(--color-dark-925) 0%, var(--color-dark-975) 100%);
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 10px 40px var(--overlay-black-50);
-  }
-
-  .portrait-inner {
-    font-family: 'Libre Baskerville', serif;
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--overlay-white-15);
-    letter-spacing: -2px;
-  }
-
   .slide-content {
     flex: 1;
     color: var(--color-white);
@@ -295,7 +281,7 @@ const slides = [
   }
 
   .slide-quote {
-    max-width: 600px;
+    margin: 0 auto;
   }
 
   .slide-quote p {
@@ -395,6 +381,14 @@ const slides = [
       padding-left: 0;
       text-align: center;
       padding-top: 25px;
+    }
+
+    .slide--quote {
+      min-height: 320px;
+    }
+
+    .slide--quote .slide-content {
+      padding-top: 0;
     }
 
     .slide-title {
