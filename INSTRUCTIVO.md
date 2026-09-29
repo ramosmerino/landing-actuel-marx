@@ -114,13 +114,17 @@ tiene su propia carpeta y su propio archivo de ejemplo para copiar.
 - Datos a completar en el frontmatter:
   - `title`: por ejemplo `"N°36"`
   - `number`: el número de la edición, sin comillas, por ejemplo `36`
-  - `pubDate`: fecha de publicación, formato `AAAA-MM-DD` (ej: `2026-06-01`)
+  - `pubDate`: fecha interna para ordenar (formato `AAAA-MM-DD`); no se muestra en el sitio
+  - `showDate`: texto visible de la edición (ej: `"Segundo Semestre 2003"`)
   - `summary`: resumen del número, en una o dos frases
   - `articles`: lista del índice (títulos y autores). Si aún no está listo, deja
     `articles: []` — en el sitio se verá «Índice en preparación».
   - `pdfUrl` *(opcional)*: enlace externo al PDF del número completo, si existe
   - `purchaseUrl` *(opcional)*: enlace de venta en LOM; si no lo pones aquí, se
     usará el de `portadas.json` para ese mismo `number`
+  - `isbn`, `issn` *(opcional)*: identificadores de la edición en LOM
+  - `specs` *(opcional)*: ficha técnica (`pages`, `format`, `weight`, `publicationYear`)
+  - `keywords` *(opcional)*: lista de palabras clave editoriales
 - Cada ítem de `articles` lleva:
   - `title`: título del artículo
   - `authors`: autores en una sola línea (ej: `"García, A.; Pérez, B."`)
@@ -146,6 +150,10 @@ articles:
   número lo usan automáticamente. Para generar archivos `numero-{n}.mdx` vacíos a
   partir de las portadas (sin sobrescribir los ya editados), ejecuta:
   `node scripts/scaffold-numeros-from-portadas.mjs`
+- Para **importar desde lom.cl** resúmenes, ISBN, ficha técnica, palabras clave y
+  `purchaseUrl` (actualiza también `portadas.json`), ejecuta:
+  `node scripts/sync-lom-numeros.mjs` — conserva el índice `articles` y el cuerpo
+  MDX que ya tengas en cada archivo.
 
 ### 📢 Convocatoria
 

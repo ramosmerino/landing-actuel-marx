@@ -2,19 +2,21 @@
     {
         "id": "1",
         "number": 1,
-        "title": "Desbandes y emergencias",
-        "cover": "../assets/portadas/Desbandes-y-emergencias---Actuel-Marx-1_1800x.webp"
+        "title": "Desbandes y emergencias en la época del Capitalismo Mundial",
+        "cover": "../assets/portadas/Desbandes-y-emergencias---Actuel-Marx-1_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/desbandes-y-emergencias-en-la-epoca-del-capitalismo-mundial-actuel-marx-no-1"
     },
     {
         "id": "2",
         "number": 2,
-        "title": "Fronteras de la emancipacion",
-        "cover": "../assets/portadas/Fronteras-de-la-emancipacion---Actuel-Marx-2_1800x.webp"
+        "title": "Fronteras de la emancipación",
+        "cover": "../assets/portadas/Fronteras-de-la-emancipacion---Actuel-Marx-2_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/fronteras-de-la-emancipacion-actuel-marx-no-2"
     },
     {
         "id": "3",
         "number": 3,
-        "title": "La reconstrucción y el retorno de lo Político",
+        "title": "La deconstrucción y el retorno de lo Político",
         "cover": "../assets/portadas/Actuel-Marx-3.png"
     },
     {
@@ -27,103 +29,120 @@
         "id": "5",
         "number": 5,
         "title": "Trabajo, explotación flexible y resistencias",
-        "cover": "../assets/portadas/Trabajoexplotacionflexibleyresistencias-ActuelMarx5_1800x.webp"
+        "cover": "../assets/portadas/Trabajoexplotacionflexibleyresistencias-ActuelMarx5_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/trabajo-explotacion-flexible-y-resistencias-actuel-marx-no-5"
     },
     {
         "id": "6",
         "number": 6,
         "title": "Memorias en busca de historia",
-        "cover": "../assets/portadas/Memorias-en-busca-de-historia---Actuel-Marx-6_1800x.webp"
+        "cover": "../assets/portadas/Memorias-en-busca-de-historia---Actuel-Marx-6_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/memorias-en-busca-de-historia-actuel-marx-no-6"
     },
     {
         "id": "7",
         "number": 7,
         "title": "Insustentabilidades del capitalismo",
-        "cover": "../assets/portadas/Insustentabilidades-del-capitalismo-Actuel-Marx-7_1800x.webp"
+        "cover": "../assets/portadas/Insustentabilidades-del-capitalismo-Actuel-Marx-7_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/insustentabilidades-del-capitalismo-actuel-marx-no-7"
     },
     {
         "id": "8",
         "number": 8,
         "title": "La pesantez de la vida cotidiana",
-        "cover": "../assets/portadas/Pesantez-de-la-vida-cotidiana---Actuel-Marx-8_1800x.webp"
+        "cover": "../assets/portadas/Pesantez-de-la-vida-cotidiana---Actuel-Marx-8_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/la-pesantez-de-la-vida-cotidiana-actuel-marx-no-8"
     },
     {
         "id": "9",
         "number": 9,
         "title": "Cuerpos contemporáneos",
-        "cover": "../assets/portadas/Cuerpos-contemporaneos---Actuel-Marx-9_1800x.webp"
+        "cover": "../assets/portadas/Cuerpos-contemporaneos---Actuel-Marx-9_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/cuerpos-contemporaneos-nuevas-practicas-antiguos-retos-otras-pasiones-actuel-marx-no-9"
     },
     {
         "id": "10",
         "number": 10,
         "title": "Bicentanarios latinoamericanos",
-        "cover": "../assets/portadas/Bicentanarios-latinoamericanos--Actuel-Marx-10_1800x.webp"
+        "cover": "../assets/portadas/Bicentanarios-latinoamericanos--Actuel-Marx-10_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/bicentenario-s-latinoamericanos-actuel-marx-no-10"
     },
     {
         "id": "11",
         "number": 11,
         "title": "La sonrisa de los explotados",
-        "cover": "../assets/portadas/Sonrisa-de-los-explotados--Actuel-Marx-11_1800x.webp"
+        "cover": "../assets/portadas/Sonrisa-de-los-explotados--Actuel-Marx-11_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/la-sonrisa-de-los-explotados-huellas-y-porvenir-de-la-revolucion-actuel-marx-no-11"
     },
     {
         "id": "12",
         "number": 12,
         "title": "Extranjero y extranjeridad",
-        "cover": "../assets/portadas/Extranjero-y-extranjeridad---Actuel-Marx-12_1800x.webp"
+        "cover": "../assets/portadas/Extranjero-y-extranjeridad---Actuel-Marx-12_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/extranjero-y-extranjeridad-actuel-marx-no-12"
     },
     {
         "id": "13",
         "number": 13,
         "title": "Movimientos Sociales, Populares y Sindicales",
-        "cover": "../assets/portadas/Movimientos-sociales-populares---Actuel-Marx-13_1800x.webp"
+        "cover": "../assets/portadas/Movimientos-sociales-populares---Actuel-Marx-13_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/movimientos-sociales-populares-y-sindicales-actuel-marx-no-13"
     },
     {
         "id": "14",
         "number": 14,
         "title": "La condición antiintelectual",
-        "cover": "../assets/portadas/Condicion-antiintelectual---Actuel-Marx-14_1800x.webp"
+        "cover": "../assets/portadas/Condicion-antiintelectual---Actuel-Marx-14_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/la-condicion-anti-intelectual-actuel-marx-no-14"
     },
     {
         "id": "15",
         "number": 15,
         "title": "Los golpes por venir",
-        "cover": "../assets/portadas/Golpes-por-venir---Actuel-Marx-15_1800x.webp"
+        "cover": "../assets/portadas/Golpes-por-venir---Actuel-Marx-15_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/los-golpes-por-venir-actuel-marx-n-15"
     },
     {
         "id": "16",
         "number": 16,
         "title": "Comenzar de otro modo",
-        "cover": "../assets/portadas/Comenzar-de-otro-modo---Actuel-Marx-16_1800x.webp"
+        "cover": "../assets/portadas/Comenzar-de-otro-modo---Actuel-Marx-16_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/comenzar-de-otro-modo-reflexiones-sobre-materialismo-e-historia-actuel-marx-n-16"
     },
     {
         "id": "17",
         "number": 17,
         "title": "Humanismo y sus ficciones",
-        "cover": "../assets/portadas/Humanismo-y-sus-ficciones---Actuel-Marx-17_1800x.webp"
+        "cover": "../assets/portadas/Humanismo-y-sus-ficciones---Actuel-Marx-17_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/el-humanismo-y-sus-ficciones-educacion-investigacion-temas-relacionados-con-la-filosofia-actuel-marx-n-17"
     },
     {
         "id": "18",
         "number": 18,
         "title": "Materialismo: crítica y producción",
-        "cover": "../assets/portadas/Actuel-Marx-18_1800x.webp"
+        "cover": "../assets/portadas/Actuel-Marx-18_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/materialismo-critica-y-produccion-actuel-marx-n-18"
     },
     {
         "id": "19",
         "number": 19,
         "title": "Naturaleza americana",
-        "cover": "../assets/portadas/Actuel-Marx-19_1800x.webp"
+        "cover": "../assets/portadas/Actuel-Marx-19_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/naturaleza-americana-extractivismo-y-geopolitica-del-capital-actuel-marx-n-19"
     },
     {
         "id": "20",
         "number": 20,
         "title": "El sociometabolismo del Capital y la depredación de la Vida",
-        "cover": "../assets/portadas/Actuel-Marx-20_1800x.webp"
+        "cover": "../assets/portadas/Actuel-Marx-20_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/el-sociometabolismo-del-capital-y-la-depredacion-de-la-vida-actuel-marx-n-20"
     },
     {
         "id": "21",
         "number": 21,
         "title": "Intervenciones y recepciones de Marx",
-        "cover": "../assets/portadas/Intervenciones-y-recep---Actuel-Marx-21_1800x.webp"
+        "cover": "../assets/portadas/Intervenciones-y-recep---Actuel-Marx-21_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/intervenciones-y-recepciones-de-marx-actuel-marx-n-21"
     },
     {
         "id": "22",
@@ -136,78 +155,91 @@
         "id": "23",
         "number": 23,
         "title": "Democracia y representación",
-        "cover": "../assets/portadas/Actuel-Marx-23_1800x.webp"
+        "cover": "../assets/portadas/Actuel-Marx-23_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/democracia-y-representacion-actuel-marx-n-23"
     },
     {
         "id": "24",
         "number": 24,
         "title": "Articulaciones contra el progreso",
-        "cover": "../assets/portadas/Articulaciones---Actuel-Marx-24_1800x.webp"
+        "cover": "../assets/portadas/Articulaciones---Actuel-Marx-24_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/queer-articulaciones-contra-el-progreso-actuel-marx-n-24"
     },
     {
         "id": "25",
         "number": 25,
         "title": "Los 68s",
-        "cover": "../assets/portadas/Los-68s---Actuel-Marx-25_1800x.webp"
+        "cover": "../assets/portadas/Los-68s---Actuel-Marx-25_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/los-68s-actuel-marx-n-25"
     },
     {
         "id": "26",
         "number": 26,
         "title": "Sexo-Género/Raza/Clase: Latinoamérica desde una óptica interseccional",
-        "cover": "../assets/portadas/Actuel-Marx-26--sexo-genero_1800x.webp"
+        "cover": "../assets/portadas/Actuel-Marx-26--sexo-genero_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/sexo-genero-raza-clase-latinoamerica-desde-una-optica-interseccional-actuel-marx-n-26"
     },
     {
         "id": "27",
         "number": 27,
         "title": "El resurgimiento y auge de los fascismos",
-        "cover": "../assets/portadas/ActuelMarx27_1800x.webp"
+        "cover": "../assets/portadas/ActuelMarx27_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/el-resurgimiento-y-el-auge-de-los-fascismos-actuel-marx-n-27"
     },
     {
         "id": "28",
         "number": 28,
         "title": "La financiarización en las lógicas del capitalismo mundializado",
-        "cover": "../assets/portadas/ActuelMarx28_1800x.webp"
+        "cover": "../assets/portadas/ActuelMarx28_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/la-financiarizacion-en-las-logicas-del-capitalismo-mundializado-revista-actuel-marx-intervenciones-n-28"
     },
     {
         "id": "29",
         "number": 29,
         "title": "Rebelión Popular Chilena y crisis del modelo de acumulación capitalista mundial",
-        "cover": "../assets/portadas/ActuelMarx29_1800x.webp"
+        "cover": "../assets/portadas/ActuelMarx29_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/rebelion-popular-chilena-y-crisis-de-acumulacion-capitalista-mundial"
     },
     {
         "id": "30",
         "number": 30,
         "title": "Los intelectuales: Poder, Dominación y Resistencias",
-        "cover": "../assets/portadas/ActuelMarx30_1800x.webp"
+        "cover": "../assets/portadas/ActuelMarx30_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/actuel-marx-n-30-los-intelectuales-poder-dominacion-y-resistencia"
     },
     {
         "id": "31",
         "number": 31,
         "title": "Las Violencias: Prácticas sociales, experiencias, teorías",
-        "cover": "../assets/portadas/PortadaActuelMarx31_1800x.webp"
+        "cover": "../assets/portadas/PortadaActuelMarx31_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/actuel-marx-n%C2%BA-31-las-violencias-practicas-sociales-experiencias-y-teorias"
     },
     {
         "id": "32",
         "number": 32,
         "title": "Proceso revolucionario y contrarrevolución en Chile (I)",
-        "cover": "../assets/portadas/PortadaActuelMarx32_1800x.webp"
+        "cover": "../assets/portadas/PortadaActuelMarx32_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/actuel-marx-n%C2%BA-32-proceso-revolucionario-y-contrarrevolucionario-en-chile-historia-memoria-politica-i"
     },
     {
         "id": "33",
         "number": 33,
         "title": "Proceso revolucionario y contrarrevolución en Chile (II)",
-        "cover": "../assets/portadas/WhatsAppImage2024-03-11at15.19.21---Actuel-Marx-33_1800x.webp"
+        "cover": "../assets/portadas/WhatsAppImage2024-03-11at15.19.21---Actuel-Marx-33_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/actuel-marx-n%C2%BA-33-proceso-revolucionario-y-contrarrevolucionario-en-chile-historia-memoria-politica-ii"
     },
     {
         "id": "34",
         "number": 34,
         "title": "Entre la Cultura como Campo de Batalla y las Estéticas del Fragmento",
-        "cover": "../assets/portadas/PortadaActuelMarx34_1800x.webp"
+        "cover": "../assets/portadas/PortadaActuelMarx34_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/actuel-marx-n-34-entre-la-cultura-como-campos-de-batalla-y-las-esteticas-del-fragmento"
     },
     {
         "id": "35",
         "number": 35,
         "title": "Guerras y Lucha de Clases",
-        "cover": "../assets/portadas/PortadaActuelMarxN_35_1b43fa61-b5c3-43dc-8c98-ef332ffb9874_1800x.webp"
+        "cover": "../assets/portadas/PortadaActuelMarxN_35_1b43fa61-b5c3-43dc-8c98-ef332ffb9874_1800x.webp",
+        "purchaseUrl": "https://lom.cl/products/actuel-marx-n-35-guerras-y-lucha-de-clases-el-complejo-inductrial-militar-financiero-i"
     }
 ]

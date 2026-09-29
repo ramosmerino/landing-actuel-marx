@@ -27,6 +27,7 @@ function buildFrontmatter(portada) {
         `title: ${escapeYamlString(displayTitle)}`,
         `number: ${number}`,
         `pubDate: ${PLACEHOLDER_PUB_DATE}`,
+        `showDate: "Por confirmar"`,
         `summary: ${escapeYamlString(summary)}`,
         "articles: []",
     ];

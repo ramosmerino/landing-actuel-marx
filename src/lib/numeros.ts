@@ -7,7 +7,9 @@ type PortadaEntry = CollectionEntry<"portadas">;
 type BlogEntry = CollectionEntry<"blog">;
 
 export function getNumeroSlug(entry: NumeroEntry): string {
-    return entry.data.slug ?? entry.id;
+    const raw = entry.data.slug ?? entry.id;
+    const segment = raw.split("/").pop() ?? raw;
+    return segment.replace(/\.mdx?$/i, "");
 }
 
 export function getPortadaByNumber(
@@ -18,10 +20,15 @@ export function getPortadaByNumber(
 }
 
 export function resolvePurchaseUrl(
-    numero: NumeroEntry,
+    numero?: NumeroEntry,
     portada?: PortadaEntry,
 ): string | undefined {
-    return numero.data.purchaseUrl ?? portada?.data.purchaseUrl;
+    const url = numero?.data?.purchaseUrl ?? portada?.data?.purchaseUrl;
+    if (!url) {
+        return undefined;
+    }
+    const separator = url.includes("?") ? "&" : "?";
+    return `${url}${separator}utm_source=actuelmarxint`;
 }
 
 export function buildSeparataHrefMap(blogEntries: BlogEntry[]): Map<string, string> {

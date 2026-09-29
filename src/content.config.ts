@@ -25,16 +25,28 @@ const numeroArticleSchema = z.object({
     separataSlug: z.string().optional(),
 });
 
+const numeroSpecsSchema = z.object({
+    pages: z.number().int().optional(),
+    format: z.string().optional(),
+    weight: z.string().optional(),
+    publicationYear: z.number().int().optional(),
+});
+
 const numeros = defineCollection({
     loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/numeros" }),
     schema: z.object({
         title: z.string(),
         number: z.number().int(),
         pubDate: z.coerce.date(),
+        showDate: z.string(),
         summary: z.string(),
         cover: z.string().optional(),
         purchaseUrl: z.string().url().optional(),
         pdfUrl: z.string().url().optional(),
+        isbn: z.string().optional(),
+        issn: z.string().optional(),
+        specs: numeroSpecsSchema.optional(),
+        keywords: z.array(z.string()).default([]),
         articles: z.array(numeroArticleSchema).default([]),
         slug: z.string().optional(),
     }),

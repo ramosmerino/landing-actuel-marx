@@ -9,17 +9,27 @@ import Navigation from "./Navigation.astro";
 import Footer from "./Footer.astro";
 import NumeroIndex from "./NumeroIndex.astro";
 import type { NumeroArticle } from "./NumeroIndex.astro";
-import { formatDate } from "../lib/formatDate";
+
+export interface NumeroSpecs {
+    pages?: number;
+    format?: string;
+    weight?: string;
+    publicationYear?: number;
+}
 
 export interface Props {
     title: string;
     number: number;
-    pubDate: Date;
+    showDate: string;
     summary: string;
     articles: NumeroArticle[];
     separataHrefs: Map<string, string>;
     purchaseUrl?: string;
     pdfUrl?: string;
+    isbn?: string;
+    issn?: string;
+    specs?: NumeroSpecs;
+    keywords?: string[];
     coverImage?: ImageMetadata;
     coverAlt?: string;
     backHref: string;
@@ -30,12 +40,16 @@ export interface Props {
 const {
     title,
     number,
-    pubDate,
+    showDate,
     summary,
     articles,
     separataHrefs,
     purchaseUrl,
     pdfUrl,
+    isbn,
+    issn,
+    specs,
+    keywords = [],
     coverImage,
     coverAlt,
     backHref,
@@ -70,7 +84,7 @@ const resolvedCoverAlt =
                 }
                 <div class="numero-meta">
                     <h1>{pageTitle}</h1>
-                    <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+                    <p class="numero-show-date">{showDate}</p>
                     <p class="numero-summary">{summary}</p>
                     {
                         (purchaseUrl || pdfUrl) && (
@@ -99,6 +113,45 @@ const resolvedCoverAlt =
                                         </a>
                                     )
                                 }
+                            </div>
+                        )
+                    }
+                    {
+                        (isbn || issn || specs) && (
+                            <dl class="numero-specs">
+                                <dt>Ficha técnica</dt>
+                                <dd>
+                                    <ul class="numero-specs-list">
+                                        {isbn && <li><span>ISBN</span> {isbn}</li>}
+                                        {issn && <li><span>ISSN</span> {issn}</li>}
+                                        {specs?.pages && (
+                                            <li><span>Páginas</span> {specs.pages}</li>
+                                        )}
+                                        {specs?.format && (
+                                            <li><span>Formato</span> {specs.format}</li>
+                                        )}
+                                        {specs?.weight && (
+                                            <li><span>Peso</span> {specs.weight}</li>
+                                        )}
+                                        {specs?.publicationYear && (
+                                            <li>
+                                                <span>Año</span> {specs.publicationYear}
+                                            </li>
+                                        )}
+                                    </ul>
+                                </dd>
+                            </dl>
+                        )
+                    }
+                    {
+                        keywords.length > 0 && (
+                            <div class="numero-keywords">
+                                <span class="numero-keywords-label">Palabras clave</span>
+                                <ul class="numero-keywords-list">
+                                    {keywords.map((keyword) => (
+                                        <li>{keyword}</li>
+                                    ))}
+                                </ul>
                             </div>
                         )
                     }
@@ -173,13 +226,12 @@ const resolvedCoverAlt =
         color: var(--color-neutral-900);
     }
 
-    .numero-meta time {
-        display: block;
+    .numero-show-date {
         font-size: 0.85rem;
         color: var(--color-neutral-500);
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-bottom: 16px;
+        margin: 0 0 16px;
     }
 
     .numero-summary {
@@ -221,6 +273,64 @@ const resolvedCoverAlt =
 
     .numero-action--primary:hover {
         opacity: 0.9;
+    }
+
+    .numero-specs {
+        margin: 20px 0 0;
+        font-size: 0.9rem;
+    }
+
+    .numero-specs dt {
+        font-family: "Libre Baskerville", serif;
+        font-weight: 700;
+        color: var(--color-dark-900);
+        margin-bottom: 8px;
+    }
+
+    .numero-specs-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        color: var(--color-neutral-700);
+    }
+
+    .numero-specs-list span {
+        font-weight: 600;
+        color: var(--color-neutral-600);
+        margin-right: 6px;
+    }
+
+    .numero-keywords {
+        margin-top: 16px;
+    }
+
+    .numero-keywords-label {
+        display: block;
+        font-family: "Libre Baskerville", serif;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--color-dark-900);
+        margin-bottom: 8px;
+    }
+
+    .numero-keywords-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .numero-keywords-list li {
+        font-size: 0.8rem;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: var(--color-neutral-200);
+        color: var(--color-neutral-700);
     }
 
     .numero-body {

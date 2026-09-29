@@ -35,12 +35,16 @@ const coverAlt = portada?.data.title
 <NumeroTemplate
     title={entry.data.title}
     number={entry.data.number}
-    pubDate={entry.data.pubDate}
+    showDate={entry.data.showDate}
     summary={entry.data.summary}
     articles={entry.data.articles}
     separataHrefs={separataHrefs}
     purchaseUrl={resolvePurchaseUrl(entry, portada)}
     pdfUrl={entry.data.pdfUrl}
+    isbn={entry.data.isbn}
+    issn={entry.data.issn}
+    specs={entry.data.specs}
+    keywords={entry.data.keywords}
     coverImage={coverImage}
     coverAlt={coverAlt}
     backHref={withBase("/numeros-anteriores")}

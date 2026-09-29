@@ -5,6 +5,7 @@ export interface Entry {
     href: string;
     title: string;
     date?: Date;
+    dateLabel?: string;
     summary?: string;
 }
 
@@ -24,7 +25,15 @@ const { entries, emptyLabel = "Aún no hay contenido publicado en esta sección.
             <li class="entry-list-item">
                 <a href={entry.href}>
                     <h3>{entry.title}</h3>
-                    {entry.date && <time datetime={entry.date.toISOString()}>{formatDate(entry.date)}</time>}
+                    {
+                        entry.dateLabel ? (
+                            <span class="entry-list-date">{entry.dateLabel}</span>
+                        ) : (
+                            entry.date && (
+                                <time datetime={entry.date.toISOString()}>{formatDate(entry.date)}</time>
+                            )
+                        )
+                    }
                     {entry.summary && <p>{entry.summary}</p>}
                 </a>
             </li>
@@ -68,7 +77,8 @@ const { entries, emptyLabel = "Aún no hay contenido publicado en esta sección.
         color: var(--color-primary);
     }
 
-    .entry-list-item time {
+    .entry-list-item time,
+    .entry-list-date {
         display: block;
         font-size: 0.8rem;
         color: var(--color-primary);
