@@ -33,7 +33,7 @@ export const navItems: NavItem[] = [
             { label: "NOTICIAS Y EVENTOS", href: "/noticias-y-eventos" },
         ],
     },
-    { label: "ENCICLOPEDIA", href: "/enciclopedia" },
+    // { label: "ENCICLOPEDIA", href: "/enciclopedia" },
     { label: "CONTACTANOS", href: "/contactanos" },
 ];
 
