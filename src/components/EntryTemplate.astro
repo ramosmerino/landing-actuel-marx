@@ -16,33 +16,38 @@ export interface Props {
 }
 
 const { title, pubDate, summary, backHref, backLabel, Content } = Astro.props;
+const hasSlotContent = Astro.slots.has("default");
 ---
 
 <Layout title={title}>
     <Header />
     <Navigation />
-    <main>
-        <article class="entry container">
-            <a class="entry-back" href={backHref}>&larr; {backLabel}</a>
-            <h1>{title}</h1>
-            {pubDate && <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>}
-            {summary && <p class="entry-summary">{summary}</p>}
-            <slot />
-            <div class="entry-body">
-                <Content />
-            </div>
-        </article>
+    <main class="content-main">
+        <div class="container">
+            <article class="content-page entry">
+                <a class="entry-back" href={backHref}>&larr; {backLabel}</a>
+                <h1 class="content-page__title">{title}</h1>
+                {pubDate && <time class="entry-date" datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>}
+                {summary && <p class="entry-summary">{summary}</p>}
+                {
+                    hasSlotContent && (
+                        <div class="entry-slot">
+                            <slot />
+                        </div>
+                    )
+                }
+                <div class="content-prose entry-body">
+                    <Content />
+                </div>
+            </article>
+        </div>
     </main>
     <Footer />
 </Layout>
 
 <style>
-    main {
-        padding: 40px 0;
-    }
-
-    .entry {
-        max-width: 800px;
+    .content-main {
+        padding: 40px 0 56px;
     }
 
     .entry-back {
@@ -51,15 +56,20 @@ const { title, pubDate, summary, backHref, backLabel, Content } = Astro.props;
         font-size: 0.85rem;
         color: var(--color-primary);
         font-weight: 600;
+        text-decoration: none;
     }
 
-    .entry time {
+    .entry-back:hover {
+        text-decoration: underline;
+    }
+
+    .entry-date {
         display: block;
         font-size: 0.85rem;
         color: var(--color-neutral-500);
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        margin-bottom: 20px;
+        margin: -8px 0 20px;
     }
 
     .entry-summary {
@@ -71,13 +81,11 @@ const { title, pubDate, summary, backHref, backLabel, Content } = Astro.props;
         padding-left: 20px;
     }
 
-    .entry-body {
-        font-size: 0.95rem;
-        line-height: 1.8;
-        color: var(--color-neutral-800);
+    .entry-slot {
+        margin-bottom: 28px;
     }
 
-    .entry-body :global(p) {
-        margin-bottom: 20px;
+    .entry-body {
+        margin-top: 8px;
     }
 </style>

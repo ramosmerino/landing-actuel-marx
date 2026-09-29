@@ -13,23 +13,34 @@ export interface Props {
 }
 
 const { frontmatter, Content } = Astro.props;
+const hasSlotContent = Astro.slots.has("default");
 ---
 
 <Layout title={frontmatter.title}>
     <Header />
     <Navigation />
-    <main>
+    <main class="content-main">
         <div class="container">
-            <h1>{frontmatter.title}</h1>
-            <Content />
-            <slot />
+            <article class="content-page">
+                <h1 class="content-page__title">{frontmatter.title}</h1>
+                <div class="content-prose">
+                    <Content />
+                </div>
+                {
+                    hasSlotContent && (
+                        <div class="content-page__section">
+                            <slot />
+                        </div>
+                    )
+                }
+            </article>
         </div>
     </main>
     <Footer />
 </Layout>
 
 <style>
-    main {
-        padding: 40px 0;
+    .content-main {
+        padding: 40px 0 56px;
     }
 </style>
