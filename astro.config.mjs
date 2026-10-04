@@ -7,7 +7,6 @@ import solidJs from "@astrojs/solid-js";
 
 // https://astro.build/config
 export default defineConfig({
-    site: "https://ramosmerino.github.io",
-    base: "/landing-actuel-marx",
+    site: "https://actuelmarxint.cl",
     integrations: [mdx(), sitemap(), solidJs()],
 });
