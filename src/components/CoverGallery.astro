@@ -16,10 +16,43 @@ const [covers, numeros] = await Promise.all([
 
 const numerosByNumber = buildNumerosByNumber(numeros);
 
+// Más nuevos primero; el control del navegador puede invertir el orden.
 const sortedCovers = covers.sort(
-    (a, b) => (a.data.number ?? Infinity) - (b.data.number ?? Infinity),
+    (a, b) => (b.data.number ?? -Infinity) - (a.data.number ?? -Infinity),
 );
+
+// Índice de búsqueda: título del número, y título/autores de cada artículo.
+const searchIndex = numeros.map((entry) => {
+    const cover = covers.find((c) => c.data.number === entry.data.number);
+    return {
+        number: entry.data.number,
+        header: [`N°${entry.data.number}`, entry.data.title, cover?.data.title ?? ""].join(" "),
+        articles: entry.data.articles.map((article) => ({
+            title: article.title,
+            authors: article.authors,
+        })),
+    };
+});
+const searchIndexJson = JSON.stringify(searchIndex).replace(/</g, "\\u003c");
 ---
+
+<div class="cover-browser">
+    <form class="cover-controls" role="search" hidden>
+        <label class="cover-search">
+            <span class="cover-search-label">Buscar en índices y autores</span>
+            <input
+                type="search"
+                name="q"
+                placeholder="Título, autor o tema…"
+                autocomplete="off"
+            />
+        </label>
+        <button type="button" class="cover-order" data-order="desc">
+            Más recientes primero ↓
+        </button>
+    </form>
+    <p class="cover-status" role="status" aria-live="polite" hidden></p>
+    <p class="cover-empty" hidden>No se encontraron números con esa búsqueda.</p>
 
 <div class="cover-grid">
     {sortedCovers.map((cover) => {
@@ -37,7 +70,7 @@ const sortedCovers = covers.sort(
             : cover.data.title;
 
         return (
-            <figure class="cover-item">
+            <figure class="cover-item" data-number={cover.data.number}>
                 {detailHref ? (
                     <a class="cover-link" href={detailHref}>
                         <Image
@@ -78,6 +111,7 @@ const sortedCovers = covers.sort(
                                 )}
                             </>
                         )}
+                        <ul class="cover-matches"></ul>
                         {purchaseUrl && (
                             <a
                                 class="cover-lom-link"
@@ -94,8 +128,111 @@ const sortedCovers = covers.sort(
         );
     })}
 </div>
+    <script type="application/json" id="cover-search-index" set:html={searchIndexJson} />
+</div>
 
 <style>
+    .cover-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: flex-end;
+        margin-top: 24px;
+    }
+
+    .cover-controls[hidden],
+    .cover-status[hidden],
+    .cover-empty[hidden],
+    .cover-item[hidden] {
+        display: none;
+    }
+
+    .cover-search {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        flex: 1 1 260px;
+    }
+
+    .cover-search-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--color-neutral-700);
+    }
+
+    .cover-search input {
+        padding: 10px 12px;
+        font: inherit;
+        color: var(--color-neutral-800);
+        border: 1px solid var(--color-neutral-300);
+        border-radius: 4px;
+        background: var(--color-white);
+    }
+
+    .cover-search input:focus-visible,
+    .cover-order:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 2px;
+    }
+
+    .cover-order {
+        padding: 10px 14px;
+        font: inherit;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--color-primary);
+        background: var(--color-white);
+        border: 1px solid var(--color-primary);
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .cover-order:hover {
+        background: var(--color-primary);
+        color: var(--color-white);
+    }
+
+    .cover-status {
+        margin-top: 12px;
+        font-size: 0.85rem;
+        color: var(--color-neutral-500);
+    }
+
+    .cover-empty {
+        margin-top: 24px;
+        color: var(--color-neutral-600);
+    }
+
+    .cover-matches {
+        list-style: none;
+        margin: 4px 0 0;
+        padding: 0;
+        text-align: left;
+        font-size: 0.72rem;
+        color: var(--color-neutral-600);
+    }
+
+    .cover-matches:empty {
+        display: none;
+    }
+
+    .cover-matches :global(li) {
+        margin-top: 4px;
+        line-height: 1.3;
+    }
+
+    .cover-matches :global(mark) {
+        background: var(--color-gold-accent);
+        color: inherit;
+        border-radius: 2px;
+    }
+
+    .cover-matches :global(.cover-match-authors) {
+        display: block;
+        color: var(--color-neutral-500);
+        font-style: italic;
+    }
+
     .cover-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -175,3 +312,154 @@ const sortedCovers = covers.sort(
         text-decoration: underline;
     }
 </style>
+
+<script>
+    type IndexEntry = {
+        number: number;
+        header: string;
+        articles: { title: string; authors: string }[];
+    };
+
+    const normalize = (text: string) =>
+        text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+    const root = document.querySelector<HTMLElement>(".cover-browser");
+    const indexEl = document.getElementById("cover-search-index");
+
+    if (root && indexEl) {
+        const index: IndexEntry[] = JSON.parse(indexEl.textContent ?? "[]");
+        const searchable = new Map(
+            index.map((entry) => [
+                entry.number,
+                {
+                    entry,
+                    articles: entry.articles.map((article) => ({
+                        ...article,
+                        text: normalize(`${article.title} ${article.authors}`),
+                    })),
+                    header: normalize(entry.header),
+                },
+            ]),
+        );
+
+        const form = root.querySelector<HTMLFormElement>(".cover-controls")!;
+        const input = form.querySelector<HTMLInputElement>("input")!;
+        const orderButton = form.querySelector<HTMLButtonElement>(".cover-order")!;
+        const grid = root.querySelector<HTMLElement>(".cover-grid")!;
+        const status = root.querySelector<HTMLElement>(".cover-status")!;
+        const empty = root.querySelector<HTMLElement>(".cover-empty")!;
+        const items = [...grid.querySelectorAll<HTMLElement>(".cover-item")];
+
+        const params = new URLSearchParams(location.search);
+        input.value = params.get("q") ?? "";
+        let descending = params.get("orden") !== "asc";
+
+        // Pliega cada carácter por separado para que los índices coincidan con el texto original.
+        const foldChars = (text: string) =>
+            [...text].map((char) => normalize(char));
+
+        const appendHighlighted = (parent: HTMLElement, text: string, terms: string[]) => {
+            const folded = foldChars(text);
+            const flat = folded.join("");
+            if (flat.length !== text.length) {
+                parent.append(text);
+                return;
+            }
+            const marked = new Array<boolean>(text.length).fill(false);
+            for (const term of terms) {
+                for (let at = flat.indexOf(term); at !== -1; at = flat.indexOf(term, at + 1)) {
+                    marked.fill(true, at, at + term.length);
+                }
+            }
+            let start = 0;
+            while (start < text.length) {
+                let end = start;
+                while (end < text.length && marked[end] === marked[start]) end++;
+                const chunk = text.slice(start, end);
+                if (marked[start]) {
+                    const mark = document.createElement("mark");
+                    mark.textContent = chunk;
+                    parent.append(mark);
+                } else {
+                    parent.append(chunk);
+                }
+                start = end;
+            }
+        };
+
+        const renderMatches = (
+            item: HTMLElement,
+            matches: { title: string; authors: string }[],
+            terms: string[],
+        ) => {
+            const list = item.querySelector<HTMLElement>(".cover-matches");
+            if (!list) return;
+            list.replaceChildren();
+            for (const match of matches) {
+                const li = document.createElement("li");
+                appendHighlighted(li, match.title, terms);
+                if (match.authors) {
+                    const authors = document.createElement("span");
+                    authors.className = "cover-match-authors";
+                    appendHighlighted(authors, match.authors, terms);
+                    li.append(authors);
+                }
+                list.append(li);
+            }
+        };
+
+        const update = () => {
+            const terms = normalize(input.value).split(/\s+/).filter(Boolean);
+
+            const sorted = [...items].sort((a, b) => {
+                const diff = Number(a.dataset.number) - Number(b.dataset.number);
+                return descending ? -diff : diff;
+            });
+            grid.append(...sorted);
+
+            let visible = 0;
+            for (const item of items) {
+                const data = searchable.get(Number(item.dataset.number));
+                let show = true;
+                let matches: { title: string; authors: string }[] = [];
+
+                if (terms.length > 0) {
+                    // Una línea del índice coincide si contiene todos los términos;
+                    // un número se muestra si coincide alguna línea o su encabezado.
+                    const hasAll = (text: string) => terms.every((term) => text.includes(term));
+                    matches = data ? data.articles.filter((a) => hasAll(a.text)) : [];
+                    show = matches.length > 0 || (data ? hasAll(data.header) : false);
+                }
+
+                item.hidden = !show;
+                renderMatches(item, matches, terms);
+                if (show) visible++;
+            }
+
+            const searching = terms.length > 0;
+            status.hidden = !searching;
+            status.textContent = `${visible} de ${items.length} números`;
+            empty.hidden = visible > 0;
+            orderButton.dataset.order = descending ? "desc" : "asc";
+            orderButton.textContent = descending
+                ? "Más recientes primero ↓"
+                : "Más antiguos primero ↑";
+
+            const next = new URLSearchParams();
+            if (input.value.trim()) next.set("q", input.value.trim());
+            if (!descending) next.set("orden", "asc");
+            const query = next.toString();
+            history.replaceState(null, "", location.pathname + (query ? `?${query}` : ""));
+        };
+
+        form.addEventListener("submit", (event) => event.preventDefault());
+        input.addEventListener("input", update);
+        orderButton.addEventListener("click", () => {
+            descending = !descending;
+            update();
+        });
+
+        form.hidden = false;
+        update();
+    }
+</script>
