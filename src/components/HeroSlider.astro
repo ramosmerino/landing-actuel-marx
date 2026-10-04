@@ -1,35 +1,40 @@
 ---
-const slides = [
+import { getCollection } from "astro:content";
+
+const HERO_BOOK_FALLBACK_COLOR = "#1a3a5c";
+const HERO_AVAILABILITY =
+  "Disponible en Ediciones LOM y en las principales librerías del país";
+
+function headingFromNumeroSummary(summary: string): string {
+  const match = summary.match(/N°\s*\d+:\s*(.+)$/i);
+  const raw = match?.[1]?.replace(/\.\s*$/, "").trim() ?? summary;
+  return raw.toUpperCase();
+}
+
+const staticSlides = [
   {
-    number: 30,
-    subtitle: 'PRIMER SEMESTRE 2021',
-    heading: 'LOS INTELECTUALES: PODER, DOMINACIÓN Y RESISTENCIAS',
-    description: 'Disponible en Ediciones LOM y en las principales librerías del país...',
-    type: 'book',
-    color: '#1a3a5c'
+    text:
+      "Una mercancía parece ser, a primera vista, una cosa trivial y comprensible de por sí. De su análisis resulta que es un objeto muy complicado, lleno de sutilezas metafísicas y reticencias teológicas...",
+    author: "Karl Marx, El Capital",
+    type: "quote" as const,
   },
-  {
-    number: 29,
-    subtitle: 'SEGUNDO SEMESTRE 2020',
-    heading: 'REBELIÓN POPULAR CHILENA Y CRISIS DEL MODELO DE ACUMULACIÓN CAPITALISTA MUNDIAL',
-    description: 'Disponible en Ediciones LOM y en las principales librerías del país',
-    type: 'book',
-    color: '#2c1810'
-  },
-  {
-    number: 31,
-    subtitle: 'SEGUNDO SEMESTRE 2022',
-    heading: 'LAS VIOLENCIAS: PRÁCTICAS SOCIALES, EXPERIENCIAS, TEORÍAS',
-    description: 'Disponible en Ediciones LOM y en las principales librerías del país',
-    type: 'book',
-    color: '#4a1a2e'
-  },
-  {
-    text: 'Una mercancía parece ser, a primera vista, una cosa trivial y comprensible de por sí. De su análisis resulta que es un objeto muy complicado, lleno de sutilezas metafísicas y reticencias teológicas...',
-    author: 'Karl Marx, El Capital',
-    type: 'quote'
-  }
 ];
+
+const numeros = await getCollection("numeros");
+const latestNumeros = [...numeros]
+  .sort((a, b) => b.data.number - a.data.number)
+  .slice(0, 2);
+
+const numeroSlides = latestNumeros.map((entry) => ({
+  type: "book" as const,
+  number: entry.data.number,
+  subtitle: entry.data.showDate,
+  heading: headingFromNumeroSummary(entry.data.summary),
+  description: HERO_AVAILABILITY,
+  color: entry.data.coverColor ?? HERO_BOOK_FALLBACK_COLOR,
+}));
+
+const slides = [...numeroSlides, ...staticSlides];
 ---
 
 <section class="hero-slider">
