@@ -41,6 +41,7 @@ const numeros = defineCollection({
         showDate: z.string(),
         summary: z.string(),
         cover: z.string().optional(),
+        coverColor: z.string().optional(),
         purchaseUrl: z.string().url().optional(),
         pdfUrl: z.string().url().optional(),
         isbn: z.string().optional(),
