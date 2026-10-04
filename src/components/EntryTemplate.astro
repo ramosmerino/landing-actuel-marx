@@ -17,9 +17,25 @@ export interface Props {
 
 const { title, pubDate, summary, backHref, backLabel, Content } = Astro.props;
 const hasSlotContent = Astro.slots.has("default");
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description: summary,
+    inLanguage: "es-CL",
+    ...(pubDate && { datePublished: pubDate.toISOString() }),
+    publisher: { "@type": "Organization", name: "Actuel Marx Intervenciones" },
+};
 ---
 
-<Layout title={title}>
+<Layout
+    title={title}
+    description={summary}
+    type="article"
+    publishedTime={pubDate}
+    jsonLd={jsonLd}
+>
     <Header />
     <Navigation />
     <main class="content-main">

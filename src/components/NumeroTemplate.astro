@@ -60,9 +60,30 @@ const {
 const pageTitle = title.includes("N°") ? title : `N°${number} — ${title}`;
 const resolvedCoverAlt =
     coverAlt ?? `Portada de Actuel Marx Intervenciones N°${number}`;
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Book",
+    name: pageTitle,
+    description: summary,
+    inLanguage: "es-CL",
+    bookFormat: "https://schema.org/Paperback",
+    publisher: { "@type": "Organization", name: "Ediciones LOM" },
+    ...(isbn && { isbn }),
+    ...(specs?.pages && { numberOfPages: specs.pages }),
+    ...(specs?.publicationYear && { datePublished: String(specs.publicationYear) }),
+    ...(keywords.length > 0 && { keywords: keywords.join(", ") }),
+};
 ---
 
-<Layout title={pageTitle}>
+<Layout
+    title={pageTitle}
+    description={summary}
+    image={coverImage}
+    imageAlt={resolvedCoverAlt}
+    type="book"
+    jsonLd={jsonLd}
+>
     <Header />
     <Navigation />
     <main>

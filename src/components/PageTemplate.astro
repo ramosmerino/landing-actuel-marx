@@ -8,6 +8,7 @@ import Footer from "./Footer.astro";
 export interface Props {
     frontmatter: {
         title: string;
+        description?: string;
     };
     Content: AstroComponentFactory;
 }
@@ -16,7 +17,7 @@ const { frontmatter, Content } = Astro.props;
 const hasSlotContent = Astro.slots.has("default");
 ---
 
-<Layout title={frontmatter.title}>
+<Layout title={frontmatter.title} description={frontmatter.description}>
     <Header />
     <Navigation />
     <main class="content-main">
