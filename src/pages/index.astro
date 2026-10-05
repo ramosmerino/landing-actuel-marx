@@ -6,14 +6,19 @@ import HeroSlider from '../components/HeroSlider.astro';
 import AboutSection from '../components/AboutSection.astro';
 import Footer from '../components/Footer.astro';
 import { socialLinks } from '../data/social';
+import { withBase } from '../lib/url';
 
 const siteUrl = new URL(import.meta.env.BASE_URL, Astro.site).href;
+const logoUrl = new URL(withBase('/img/logo.jpg'), Astro.site).href;
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Periodical',
+    '@type': 'Organization',
     name: 'Actuel Marx Intervenciones',
     url: siteUrl,
+    logo: logoUrl,
+    description: 'Actuel Marx Intervenciones es una variante editorial de la revista francesa Actuel Marx. Publicación dedicada a intervenciones políticas y filosóficas.',
     inLanguage: 'es-CL',
     sameAs: socialLinks.map((link) => link.href),
   },
