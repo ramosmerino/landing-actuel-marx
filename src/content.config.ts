@@ -20,6 +20,17 @@ const portadas = defineCollection({
         }),
 });
 
+const autores = defineCollection({
+    loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/autores" }),
+    schema: ({ image }) =>
+        z.object({
+            name: z.string(),
+            aliases: z.array(z.string()).default([]),
+            photo: image().optional(),
+            photoAlt: z.string().optional(),
+        }),
+});
+
 const numeroArticleSchema = z.object({
     title: z.string(),
     authors: z.string(),
@@ -119,6 +130,7 @@ const noticias = defineCollection({
 export const collections = {
     pages,
     portadas,
+    autores,
     numeros,
     convocatorias,
     blog,

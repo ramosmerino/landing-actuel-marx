@@ -1,0 +1,160 @@
+---
+import { Image } from "astro:assets";
+import { render } from "astro:content";
+
+import EntryList from "../../components/EntryList.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import Navigation from "../../components/Navigation.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getAutores } from "../../lib/autores";
+import { getNumeroSlug } from "../../lib/numeros";
+import { withBase } from "../../lib/url";
+
+export async function getStaticPaths() {
+    const { autores } = await getAutores();
+    return [...autores.values()].map((autor) => ({
+        params: { slug: autor.slug },
+        props: { autor },
+    }));
+}
+
+const { autor } = Astro.props;
+const { profile } = autor;
+const Bio = profile ? (await render(profile)).Content : undefined;
+const hasBio = profile ? Boolean(profile.body?.trim()) : false;
+
+const articleEntries = autor.articles.map(({ title, numero }) => ({
+    href: withBase(`/numeros-anteriores/${getNumeroSlug(numero)}`),
+    title,
+    dateLabel: `N°${numero.data.number} · ${numero.data.showDate}`,
+}));
+const postEntries = autor.posts.map((post) => ({
+    href: withBase(`/blog/${post.data.slug ?? post.id}`),
+    title: post.data.title,
+    date: post.data.pubDate,
+    summary: post.data.summary,
+}));
+
+const total = autor.articles.length + autor.posts.length;
+const description =
+    total > 0
+        ? `Artículos de ${autor.name} en Actuel Marx Intervenciones (${total}).`
+        : `Perfil de ${autor.name} en Actuel Marx Intervenciones.`;
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: autor.name,
+    url: new URL(Astro.url.pathname, Astro.site).href,
+};
+---
+
+<Layout
+    title={autor.name}
+    description={description}
+    image={profile?.data.photo}
+    imageAlt={profile?.data.photoAlt ?? autor.name}
+    type="profile"
+    jsonLd={jsonLd}
+>
+    <Header />
+    <Navigation />
+    <main class="content-main">
+        <div class="container">
+            <article class="content-page autor">
+                <a class="autor-back" href={withBase("/numeros-anteriores")}>&larr; Números Anteriores</a>
+                <h1 class="content-page__title">{autor.name}</h1>
+
+                {
+                    (profile?.data.photo || hasBio) && (
+                        <div class="autor-profile">
+                            {profile?.data.photo && (
+                                <Image
+                                    class="autor-photo"
+                                    src={profile.data.photo}
+                                    alt={profile.data.photoAlt ?? autor.name}
+                                    widths={[160, 320]}
+                                    sizes="160px"
+                                />
+                            )}
+                            {Bio && hasBio && (
+                                <div class="content-prose autor-bio">
+                                    <Bio />
+                                </div>
+                            )}
+                        </div>
+                    )
+                }
+
+                <section class="autor-section">
+                    <h2>Artículos en la revista</h2>
+                    <EntryList
+                        entries={articleEntries}
+                        emptyLabel="Aún no hay artículos registrados para este autor."
+                    />
+                </section>
+
+                {
+                    postEntries.length > 0 && (
+                        <section class="autor-section">
+                            <h2>En el blog</h2>
+                            <EntryList entries={postEntries} />
+                        </section>
+                    )
+                }
+            </article>
+        </div>
+    </main>
+    <Footer />
+</Layout>
+
+<style>
+    .content-main {
+        padding: 40px 0 56px;
+    }
+
+    .autor-back {
+        display: inline-block;
+        margin-bottom: 20px;
+        font-size: 0.85rem;
+        color: var(--color-primary);
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .autor-back:hover {
+        text-decoration: underline;
+    }
+
+    .autor-profile {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+        align-items: flex-start;
+        margin-bottom: 32px;
+    }
+
+    .autor-profile :global(.autor-photo) {
+        width: 160px;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px var(--overlay-black-15);
+    }
+
+    .autor-bio {
+        flex: 1 1 320px;
+        min-width: 0;
+    }
+
+    .autor-section {
+        margin-top: 32px;
+    }
+
+    .autor-section h2 {
+        font-family: "Libre Baskerville", serif;
+        font-size: 1.35rem;
+        color: var(--color-primary);
+        margin-bottom: 16px;
+    }
+</style>

@@ -127,7 +127,10 @@ tiene su propia carpeta y su propio archivo de ejemplo para copiar.
   - `keywords` *(opcional)*: lista de palabras clave editoriales
 - Cada ítem de `articles` lleva:
   - `title`: título del artículo
-  - `authors`: autores en una sola línea (ej: `"García, A.; Pérez, B."`)
+  - `authors`: autores en una sola línea. Separa varios autores con coma
+    (`"Ana García, Bruno Pérez"`) o, si escribes «Apellido, N.», con punto y coma
+    (`"García, A.; Pérez, B."`). Cada autor se enlaza automáticamente a su página
+    (ver «Autores y perfiles»)
   - `separataSlug` *(opcional)*: identificador de la entrada en el blog, **solo si**
     la separata ya está publicada. Debe coincidir con el nombre del archivo sin
     extensión, incluyendo la carpeta, por ejemplo `separatas/mi-articulo` para el
@@ -211,6 +214,23 @@ articles:
   - `title`, `pubDate`, `summary`
   - `eventDate` *(opcional)*: si es un evento con fecha propia
   - `location` *(opcional)*: lugar del evento
+
+### 👤 Autores y perfiles
+
+- Cada autor que aparece en el índice de un número tiene **su propia página**
+  (`/autores/nombre-apellido`) con la lista de sus artículos. Se crea sola; no
+  hay que hacer nada. El nombre es un enlace en el índice de cada número.
+- Para agregar **foto y biografía** (opcional), crea un archivo en
+  `src/content/autores/` copiando `autor-ejemplo.mdx`:
+  - `name`: el nombre tal como aparece en los índices
+  - `aliases` *(opcional)*: otras formas del mismo nombre, para unir sus artículos
+    en una sola página (ej: `["Iván Trujillo C.", "Iván Trujillo Correa"]`)
+  - `photo` *(opcional)*: ruta a una imagen guardada en `src/assets/autores/`
+    (ej: `../../assets/autores/nombre-apellido.jpg`) y `photoAlt` con su descripción
+  - el texto del archivo es la biografía
+- Las tildes y mayúsculas no importan para unir nombres, pero sí las letras
+  distintas: «Juan Riveros» y «Juan Riveros B.» son páginas separadas hasta que
+  las unas con `aliases`.
 
 ---
 

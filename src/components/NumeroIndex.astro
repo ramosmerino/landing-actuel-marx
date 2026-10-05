@@ -1,4 +1,6 @@
 ---
+import { autorHref, getAutores, splitAuthors } from "../lib/autores";
+
 export interface NumeroArticle {
     title: string;
     authors: string;
@@ -11,6 +13,7 @@ export interface Props {
 }
 
 const { articles, separataHrefs } = Astro.props;
+const { slugFor } = await getAutores();
 ---
 
 <section class="numero-index" aria-labelledby="numero-index-heading">
@@ -35,7 +38,14 @@ const { articles, separataHrefs } = Astro.props;
                                     article.title
                                 )}
                             </span>
-                            <span class="numero-index-authors">{article.authors}</span>
+                            <span class="numero-index-authors">
+                                {splitAuthors(article.authors).map((name, i) => (
+                                    <>
+                                        {i > 0 && ", "}
+                                        <a href={autorHref(slugFor(name))}>{name}</a>
+                                    </>
+                                ))}
+                            </span>
                         </li>
                     );
                 })}
@@ -103,5 +113,15 @@ const { articles, separataHrefs } = Astro.props;
         font-size: 0.9rem;
         color: var(--color-neutral-600);
         line-height: 1.5;
+    }
+
+    .numero-index-authors a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .numero-index-authors a:hover {
+        color: var(--color-primary);
+        text-decoration: underline;
     }
 </style>
