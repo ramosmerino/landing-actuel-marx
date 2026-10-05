@@ -1,6 +1,52 @@
 ---
+import { getCollection } from "astro:content";
+
 import PageTemplate from "../components/PageTemplate.astro";
 import { Content, frontmatter } from "../content/pages/acerca-de-la-revista.md";
+import { getCurrentNumero, getNumeroSlug } from "../lib/numeros";
+import { withBase } from "../lib/url";
+
+const ultimo = getCurrentNumero(await getCollection("numeros"));
 ---
 
-<PageTemplate frontmatter={frontmatter} Content={Content} />
+<PageTemplate frontmatter={frontmatter} Content={Content}>
+    {
+        ultimo && (
+            <p class="ultimo-numero">
+                <span class="ultimo-numero-label">Último número disponible</span>
+                <a href={withBase(`/numeros-anteriores/${getNumeroSlug(ultimo)}`)}>
+                    N°{ultimo.data.number} · {ultimo.data.showDate} &rarr;
+                </a>
+            </p>
+        )
+    }
+</PageTemplate>
+
+<style>
+    .ultimo-numero {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding-left: 20px;
+        border-left: 4px solid var(--color-primary);
+    }
+
+    .ultimo-numero-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--color-neutral-500);
+    }
+
+    .ultimo-numero a {
+        font-family: "Libre Baskerville", serif;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--color-primary);
+    }
+
+    .ultimo-numero a:hover {
+        text-decoration: underline;
+    }
+</style>
