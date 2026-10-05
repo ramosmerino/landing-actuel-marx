@@ -11,8 +11,21 @@ const entries = terminos.map((entry) => ({
     title: entry.data.title,
     summary: entry.data.summary,
 }));
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: frontmatter.title,
+    description: frontmatter.description,
+    inLanguage: "es-CL",
+    hasPart: terminos.map((entry) => ({
+        "@type": "Article",
+        headline: entry.data.title,
+        url: new URL(`/enciclopedia/${entry.data.slug ?? entry.id}`, Astro.site).href,
+    })),
+};
 ---
 
-<PageTemplate frontmatter={frontmatter} Content={Content}>
+<PageTemplate frontmatter={frontmatter} Content={Content} jsonLd={jsonLd}>
     <EntryList entries={entries} emptyLabel="Aún no hay términos publicados en la enciclopedia." />
 </PageTemplate>

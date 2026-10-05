@@ -11,13 +11,24 @@ export interface Props {
         description?: string;
     };
     Content: AstroComponentFactory;
+    jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { frontmatter, Content } = Astro.props;
+const { frontmatter, Content, jsonLd } = Astro.props;
 const hasSlotContent = Astro.slots.has("default");
+
+const defaultJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: frontmatter.title,
+    description: frontmatter.description,
+    inLanguage: "es-CL",
+};
+
+const finalJsonLd = jsonLd ?? defaultJsonLd;
 ---
 
-<Layout title={frontmatter.title} description={frontmatter.description}>
+<Layout title={frontmatter.title} description={frontmatter.description} jsonLd={finalJsonLd}>
     <Header />
     <Navigation />
     <main class="content-main">

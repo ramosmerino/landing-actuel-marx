@@ -14,8 +14,21 @@ const entries = capsulas.map((entry) => ({
     date: entry.data.pubDate,
     summary: entry.data.summary,
 }));
+
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: frontmatter.title,
+    description: frontmatter.description,
+    inLanguage: "es-CL",
+    hasPart: capsulas.map((entry) => ({
+        "@type": "Article",
+        headline: entry.data.title,
+        url: new URL(`/capsulas-podcast/${entry.data.slug ?? entry.id}`, Astro.site).href,
+    })),
+};
 ---
 
-<PageTemplate frontmatter={frontmatter} Content={Content}>
+<PageTemplate frontmatter={frontmatter} Content={Content} jsonLd={jsonLd}>
     <EntryList entries={entries} emptyLabel="Aún no hay cápsulas o episodios publicados." />
 </PageTemplate>
