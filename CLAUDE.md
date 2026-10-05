@@ -14,6 +14,7 @@ Marketing/content site for *Actuel Marx Intervenciones*, a political/philosophic
 - `pnpm preview` — serve the production build locally
 - `pnpm astro check` — typecheck the project
 - `pnpm astro sync` — sync generated types for content collections
+- `git push` runs `.githooks/pre-push`, which executes `pnpm build` and aborts the push if it fails (skip with `--no-verify`). `pnpm install` registers the hook automatically through the `prepare` script (`core.hooksPath=.githooks`).
 
 There is no test suite, linter config, or CI test step in this repo currently.
 

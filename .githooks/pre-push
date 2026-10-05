@@ -1,0 +1,15 @@
+#!/bin/sh
+# Verifica que el sitio compile antes de hacer push. Saltar con: git push --no-verify
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+echo "pre-push: verificando que el build sea exitoso..."
+log=$(mktemp)
+if pnpm build >"$log" 2>&1; then
+    rm -f "$log"
+    echo "pre-push: build exitoso."
+else
+    cat "$log"
+    rm -f "$log"
+    echo "pre-push: el build falló, se cancela el push." >&2
+    exit 1
+fi
