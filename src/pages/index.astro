@@ -14,7 +14,7 @@ const logoUrl = new URL(withBase('/img/logo.jpg'), Astro.site).href;
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': ['Periodical', 'Organization'],
     name: 'Actuel Marx Intervenciones',
     url: siteUrl,
     logo: logoUrl,
